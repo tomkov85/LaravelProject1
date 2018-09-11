@@ -1,0 +1,23 @@
+*{
+	text-align:center;
+}
+
+#questionTable>tbody>tr>td {
+	border:2px solid white;
+}
+
+#questionTable>tbody>tr>td:hover {
+	background-color:yellow;
+}
+
+#timer{
+	width:35px;
+}
+
+#correctAnswer {
+	display:none;
+}
+
+#answer {
+	display:none;
+}
