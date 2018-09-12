@@ -22,12 +22,16 @@ class QuizController extends Controller
 		session()->put('timeSum', 0);
 		session()->put('qid', 0);
 		session()->put('questionMax', count(DB::table('questions')->get()));
-		return QuizController::show();
+		return redirect()->action('QuizController@show');
 	}
 	
 	public function setDatas() {
 		session()->put('points', (session()->get('points') + $_GET['answer']));
-		session()->put('timeSum', (session()->get('timeSum') + $_GET['timer']));
+		$time = $_GET['timer'];
+		if ($time == "") {
+			$time = 0;
+		}
+		session()->put('timeSum', (session()->get('timeSum') + $time));
 		return redirect()->action('QuizController@show');
 	}
     /**

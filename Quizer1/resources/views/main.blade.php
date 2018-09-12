@@ -11,27 +11,21 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar" id = "headerNav">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand">Quizer</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="home">Home</a></li>
+      <li class="active"><a href="home" onclick = "alert('stop')">Home</a></li>
     </ul>
   </div>
 </nav>
   
 @yield('content')
 
-<nav class="navbar navbar-inverse navbar-fixed-bottom">
-  <div class="row">
-	<div class = "col-sm-4">
-	</div>
-    <div class = "col-sm-4">
-      <a class="navbar-brand">copyright me 2018</a>
-    </div>
-  </div>
-</nav>
+<footer id = "footerNav">
+     <a class="navbar-brand">copyright me 2018</a>
+</footer>
 </body>
 </html>

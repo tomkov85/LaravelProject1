@@ -1,6 +1,25 @@
 *{
 	text-align:center;
 }
+#footerNav, #headerNav{
+	background-color: #8080ff;
+}
+
+#footerNav a, #headerNav a{
+	color:yellow;
+}
+
+#footerNav {
+	position:fixed;
+	bottom:0px;
+	width:100%;
+}
+
+#footerNav a{
+	font-size:10px;
+	margin-left:46%;
+}
+
 
 #questionTable>tbody>tr>td {
 	border:2px solid white;

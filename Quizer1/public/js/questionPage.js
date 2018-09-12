@@ -8,10 +8,12 @@ function addSec() {
 	document.getElementById("timer").value=sec;
 	if(sec > 20) {
 		document.getElementById("timer").style.backgroundColor="pink";
+		userMessage("alert alert-danger",("Hurry, you have 10 seconds to answer!"));
 		if(sec === 30) {
 			document.getElementById("timer").style.backgroundColor="red";
 			free = false;
 			clearInterval(clock);
+			userMessage("alert alert-danger",("Sorry, your time is up!"));
 			setTimeout(function(){document.getElementById("myForm").submit()},2000);
 		}
 	}
@@ -21,7 +23,8 @@ function checkAnswer(id) {
 	if(free) {
 	free = false;
 	clearInterval(clock);
-	document.getElementById(id).style.backgroundColor="blue";
+	document.getElementById(id).style.backgroundColor="#0066ff";
+	document.getElementById(id).style.color="white";
 	var correctAnswer = document.getElementById("correctAnswer").innerHTML;
 	setTimeout(function(){ch(id, correctAnswer)},2000);
 	userMessage("alert alert-info",("You've selected answer " + id));
@@ -32,11 +35,11 @@ function checkAnswer(id) {
 function ch(id, correctAnswer) {
 	if(correctAnswer === id) {
 		document.getElementById("answer").value=1;
-		document.getElementById(id).style.backgroundColor="green";
+		document.getElementById(id).style.backgroundColor="#00cc00";
 		setTimeout(function(){document.getElementById("myForm").submit()},2000);
 		userMessage("alert alert-success",("Your answer was correct"));
 	} else {
-		document.getElementById(id).style.backgroundColor="red";
+		document.getElementById(id).style.backgroundColor="#ff1a1a";
 		setTimeout(function(){document.getElementById("myForm").submit()},2000);
 		userMessage("alert alert-danger",("You give bad answer"));
 	}

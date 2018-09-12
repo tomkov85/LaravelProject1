@@ -25,7 +25,7 @@
   <div class = "col-sm-1">
 	Time	
 	<form id = "myForm" method = "Get" action = "data">
-		<input type = "number" name = "timer" id = "timer" readonly />
+		<input type = "number" name = "timer" id = "timer" value = "0" readonly />
 		<input type = "number" name = "answer" id = "answer" value = "0" readonly />
 	</form>
   </div>
