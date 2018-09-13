@@ -7,24 +7,79 @@ use Illuminate\Http\Request;
 class QuizController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the home view
      *
-     * @return \Illuminate\Http\Response
+     * @return home.blade.php
      */
-
 	public function home() {
 		return view('home');
 	}
-	 
-	public function start() {
-		session()->put('username', substr(url()->full(),41));
-		session()->put('points', 0);
-		session()->put('timeSum', 0);
-		session()->put('qid', 0);
-		session()->put('questionMax', count(DB::table('questions')->get()));
-		return redirect()->action('QuizController@show');
+	
+	/**
+     * Display the new game view
+     *
+     * @return newgame.blade.php
+     */
+	public function newGame() {
+		return view('newGame');
 	}
 	
+	
+	/**
+     * Incialize the username, points, timesum, questionNumber variables
+     * Get the number of questions from the database 
+     * @return redirect to showQuestion function
+     */
+	public function startNewGame() {
+		session()->put('username', $_GET['name']);
+		session()->put('points', 0);
+		session()->put('timeSum', 0);
+		session()->put('questionNumber', 0);
+		session()->put('questionNumberMax', count(DB::table('questions')->get()));
+		return redirect()->action('QuizController@showQuestions');
+	}
+	
+     /**
+     * Display the actual question.
+     *
+     * @return question view with $name, $points, $timesum
+	 * @return˝if questionNumber bigger than questionMax returns the final view
+     */
+    public function showQuestions() {
+		$questionNumber = session()->get('questionNumber') + 1;
+		$name = session()->get('username');
+		$points = session()->get('points');
+		$timeSum = session()->get('timeSum');
+		if($questionNumber > session()->get('questionNumberMax')) {
+			$toplist = $this->setNewToplist($name,$points,$timeSum);
+			return view('final', ['name' => $name,'points' => $points,'timeSum' => $timeSum, 'toplist' => $toplist]);
+		} 
+		session()->put('questionNumber', $questionNumber);
+		$question = DB::table('questions')->where('id','=', $questionNumber)->get()->first();
+        return view('questions', ['name' => $name,'points' => $points,'timeSum' => $timeSum,'question' => $question]);
+    }
+
+	/**
+     * Insert the result to the toplist, if the points are better then the last players
+     * 
+     * @return new toplist from database
+     */
+	public function setNewToplist($name,$points,$timeSum) {
+		if($toplist = DB::table('toplist')->orderBy('points', 'desc', 'timesSum')->orderBy('timeSum','asc')->get()->last()->points <= $points) {
+				DB::table('toplist')->insert(
+					['username'	=> $name, 'points' => $points, 'timeSum' => $timeSum, 'created_at' => now(), 'updated_at' => now()
+				]);
+				$lastId = DB::table('toplist')->orderBy('points', 'desc', 'timesSum')->orderBy('timeSum','asc')->get()->last()->id;
+				DB::table('toplist')->where('id', '=', $lastId)->delete();
+			}
+		return DB::table('toplist')->orderBy('points', 'desc')->orderBy('timeSum','asc')->get();											
+	}
+	
+	/**
+     * Add the point and time for the aggregated datas
+     * 
+     * @return redirect to showQuestion function
+     */
 	public function setDatas() {
 		session()->put('points', (session()->get('points') + $_GET['answer']));
 		$time = $_GET['timer'];
@@ -32,89 +87,38 @@ class QuizController extends Controller
 			$time = 0;
 		}
 		session()->put('timeSum', (session()->get('timeSum') + $time));
-		return redirect()->action('QuizController@show');
+		return redirect()->action('QuizController@showQuestions');
 	}
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show() {
-		$id = session()->get('qid') + 1;
-		$name = session()->get('username');
-		$points = session()->get('points');
-		$timeSum = session()->get('timeSum');
-		if($id > session()->get('questionMax')) {
-			$toplist = DB::table('toplist')->orderBy('points', 'desc')->get();
-			return view('final', ['name' => $name,'points' => $points,'timeSum' => $timeSum, 'toplist' => $toplist]);
-		}
-		session()->put('qid', $id);
-		$question = DB::table('questions')->where('id','=', $id)->get()->first();
-        return view('questions', ['name' => $name,'points' => $points,'timeSum' => $timeSum,'question' => $question]);
-    }
-
-	//public function preLoad()
 	
-	 
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+	/**
+     * Incialize the username, points, timesum, questionNumber variables
+     * Get the number of questions from the database 
+     * @return redirect to showQuestion function
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+	public function restart() {
+		session()->put('points', 0);
+		session()->put('timeSum', 0);
+		session()->put('questionNumber', 0);
+		session()->put('questionNumberMax', count(DB::table('questions')->get()));
+		return redirect()->action('QuizController@showQuestions');
+	}
 	
+	/**
+     * Incialize the username, points, timesum, questionNumber variables
+     * Get the number of questions from the database 
+     * @return redirect to showQuestion function
+     */
+	public function showToplist() {
+		$toplist = DB::table('toplist')->orderBy('points', 'desc')->orderBy('timeSum','asc')->get();
+		return view('toplist',['toplist' => $toplist]);
+	}
 	
-	
-    /**
-     * Show the form for editing the specified resource.
+	/**
+     * Display the contact view
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return contact.blade.php
      */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+	public function contact() {
+		return view('contact');
+	}
 }

@@ -14,10 +14,12 @@
 <nav class="navbar" id = "headerNav">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand">Quizer</a>
+      <a class="navbar-brand" id = "homeLink" onclick = "location.href = 'home'">Quizer</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="home" onclick = "alert('stop')">Home</a></li>
+      <li class="active"><a id = "newGameLink" onclick = "location.href = 'newGame'" >New Game</a></li>
+	  <li class="active"><a id = "toplistLink" onclick = "location.href = 'toplist'" >Toplist</a></li>
+	  <li class="active"><a id = "contactLink" onclick = "location.href = 'contact'" >Contact Us</a></li>
     </ul>
   </div>
 </nav>

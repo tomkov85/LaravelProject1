@@ -1,6 +1,10 @@
 var sec = 0;
 var free = true;
 var clock = setInterval(function(){addSec()},1000);
+document.getElementById("homeLink").onclick = function () {quitAlertion()};
+document.getElementById("newGameLink").onclick = function () {quitAlertion()};
+document.getElementById("toplistLink").onclick = function () {quitAlertion()};
+document.getElementById("contactLink").onclick = function () {quitAlertion()};
 
 function addSec() {
 	sec++;
@@ -48,4 +52,12 @@ function ch(id, correctAnswer) {
 function userMessage(style, text) {
 	document.getElementById("message").className=style;
 	document.getElementById("message").innerHTML=text;
+}
+
+function quitAlertion() {
+	var result = confirm('Are you sure, do you want to quit?');
+	
+	if(result) {
+		location.href = "home";
+	}
 }

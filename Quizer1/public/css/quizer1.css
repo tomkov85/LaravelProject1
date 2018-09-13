@@ -2,11 +2,11 @@
 	text-align:center;
 }
 #footerNav, #headerNav{
-	background-color: #8080ff;
+	background-color: #5bc0de;
 }
 
 #footerNav a, #headerNav a{
-	color:yellow;
+	color:#ffff33;
 }
 
 #footerNav {

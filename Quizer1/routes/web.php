@@ -10,10 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/home','QuizController@home');
-Route::get('/new','QuizController@start');
-Route::get('/start','QuizController@show()');
-Route::get('/questions','QuizController@show');
+Route::get('/newGame','QuizController@newGame');
+Route::get('/new','QuizController@startNewGame');
+Route::get('/questions','QuizController@showQuestions');
 Route::get('/data','QuizController@setDatas');
-
+Route::get('/restart','QuizController@restart');
+Route::get('/toplist','QuizController@showToplist');
+Route::get('/contact','QuizController@contact');
