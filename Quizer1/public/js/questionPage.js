@@ -1,63 +1,75 @@
+$(document).ready(function() {
 var sec = 0;
 var free = true;
 var clock = setInterval(function(){addSec()},1000);
-document.getElementById("homeLink").onclick = function () {quitAlertion()};
-document.getElementById("newGameLink").onclick = function () {quitAlertion()};
-document.getElementById("toplistLink").onclick = function () {quitAlertion()};
-document.getElementById("contactLink").onclick = function () {quitAlertion()};
+
+	$('#homeLink,#newGameLink,#toplistLink,#contactLink').click(function(){
+		var links = $('#homeLink,#toplistLink').onclick;
+		quitAlertion(links);
+	});
+
 
 function addSec() {
 	sec++;
 	
-	document.getElementById("timer").value=sec;
+	$("#timer").attr('value',sec);
 	if(sec > 20) {
-		document.getElementById("timer").style.backgroundColor="pink";
+		$("#timer").css('background-color','pink');
 		userMessage("alert alert-danger",("Hurry, you have 10 seconds to answer!"));
 		if(sec === 30) {
-			document.getElementById("timer").style.backgroundColor="red";
+			$("#timer").css('background-color','red');
 			free = false;
 			clearInterval(clock);
 			userMessage("alert alert-danger",("Sorry, your time is up!"));
-			setTimeout(function(){document.getElementById("myForm").submit()},2000);
+			setTimeout(function(){$("#myForm").submit()},2000);
 		}
 	}
 }
 
-function checkAnswer(id) {
+$("#1").click(function() {
+	signAnswer(1);
+});
+$("#2").click(function() {
+	signAnswer(2);
+});
+$("#3").click(function() {
+	signAnswer(3);
+});
+$("#4").click(function() {
+	signkAnswer(4);
+});
+
+function signAnswer(id) {
 	if(free) {
 	free = false;
 	clearInterval(clock);
-	document.getElementById(id).style.backgroundColor="#0066ff";
-	document.getElementById(id).style.color="white";
-	var correctAnswer = document.getElementById("correctAnswer").innerHTML;
-	setTimeout(function(){ch(id, correctAnswer)},2000);
-	userMessage("alert alert-info",("You've selected answer " + id));
-	document.getElementById("message").style.display="inline";
+	changeAnswerMessage(id, '#0066ff', "alert alert-info", "You have selected Answer" + id);
+	$("#"+id).css('color','white');
+	setTimeout(function(){checkAnswer(id, $('#correctAnswer').text())},2000);
 	}
 }
 
-function ch(id, correctAnswer) {
-	if(correctAnswer === id) {
-		document.getElementById("answer").value=1;
-		document.getElementById(id).style.backgroundColor="#00cc00";
-		setTimeout(function(){document.getElementById("myForm").submit()},2000);
-		userMessage("alert alert-success",("Your answer was correct"));
+function checkAnswer(id, correctAnswer) {
+	if(correctAnswer === id.toString()) {
+		$("#answer").attr('value','1');
+		changeAnswerMessage(id, '#00cc00', "alert alert-success", "Your answer was correct");
 	} else {
-		document.getElementById(id).style.backgroundColor="#ff1a1a";
-		setTimeout(function(){document.getElementById("myForm").submit()},2000);
-		userMessage("alert alert-danger",("You give bad answer"));
+		changeAnswerMessage(id, '#ff1a1a', "alert alert-danger", "You give bad answer");
 	}
+	setTimeout(function(){$("#myForm").submit()},2000);
 }
 
-function userMessage(style, text) {
-	document.getElementById("message").className=style;
-	document.getElementById("message").innerHTML=text;
+function changeAnswerMessage(answerId, answerColor, messageType, messageText) {
+	$("#message").addClass(messageType);
+	$("#message").text(messageText);
+	$("#" + answerId).css('background-color',answerColor);
 }
 
-function quitAlertion() {
+function quitAlertion(links) {
 	var result = confirm('Are you sure, do you want to quit?');
 	
 	if(result) {
-		location.href = "home";
+		links;
 	}
 }
+});

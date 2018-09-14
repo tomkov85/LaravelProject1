@@ -26,17 +26,13 @@ class QuizController extends Controller
 	
 	
 	/**
-     * Incialize the username, points, timesum, questionNumber variables
-     * Get the number of questions from the database 
-     * @return redirect to showQuestion function
+     * Changes player name
+     * 
+     * @return redirect to restart function
      */
-	public function startNewGame() {
+	public function startNewGame() {		
 		session()->put('username', $_GET['name']);
-		session()->put('points', 0);
-		session()->put('timeSum', 0);
-		session()->put('questionNumber', 0);
-		session()->put('questionNumberMax', count(DB::table('questions')->get()));
-		return redirect()->action('QuizController@showQuestions');
+		return redirect()->action('QuizController@restart');
 	}
 	
      /**
@@ -54,9 +50,10 @@ class QuizController extends Controller
 			$toplist = $this->setNewToplist($name,$points,$timeSum);
 			return view('final', ['name' => $name,'points' => $points,'timeSum' => $timeSum, 'toplist' => $toplist]);
 		} 
+		//echo session()->get('f')[1];
 		session()->put('questionNumber', $questionNumber);
-		$question = DB::table('questions')->where('id','=', $questionNumber)->get()->first();
-        return view('questions', ['name' => $name,'points' => $points,'timeSum' => $timeSum,'question' => $question]);
+		//$question = DB::table('questions')->where('id','=', $questionNumber)->get()->first();
+        return view('questions', ['name' => $name,'points' => $points,'timeSum' => $timeSum,'question' => session()->get('questions')[$questionNumber - 1]]);
     }
 
 	/**
@@ -98,15 +95,22 @@ class QuizController extends Controller
 	public function restart() {
 		session()->put('points', 0);
 		session()->put('timeSum', 0);
+		$questionTable =DB::table('questions')->get();
+		$questions = array();
+		foreach($questionTable as $question) {
+			array_push($questions,$question);
+		}
+		shuffle($questions);
+		session()->put('questions', $questions);
+		session()->put('questionNumberMax', count($questionTable));
 		session()->put('questionNumber', 0);
-		session()->put('questionNumberMax', count(DB::table('questions')->get()));
 		return redirect()->action('QuizController@showQuestions');
 	}
 	
 	/**
-     * Incialize the username, points, timesum, questionNumber variables
-     * Get the number of questions from the database 
-     * @return redirect to showQuestion function
+     * Get the toplist from the database
+     *  
+     * @return toplist view
      */
 	public function showToplist() {
 		$toplist = DB::table('toplist')->orderBy('points', 'desc')->orderBy('timeSum','asc')->get();

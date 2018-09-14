@@ -27,7 +27,7 @@
 @yield('content')
 
 <footer id = "footerNav">
-     <a class="navbar-brand">copyright me 2018</a>
+     <a class="navbar-brand">copyright Tom 2018</a>
 </footer>
 </body>
 </html>
