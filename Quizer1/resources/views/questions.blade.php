@@ -12,12 +12,12 @@
 	</thead>
 	  <tbody>
       <tr>
-        <td class="info"  id = "1">{{$question->Answer1}}</td>
-        <td class="success" id = "2">{{$question->Answer2}}</td>
+        <td class="info"  id = "answer1">{{$question->Answer1}}</td>
+        <td class="success" id = "answer2">{{$question->Answer2}}</td>
       </tr>
       <tr>
-        <td class="active"  id = "3">{{$question->Answer3}}</td>
-        <td class="warning"  id = "4">{{$question->Answer4}}</td>
+        <td class="active"  id = "answer3">{{$question->Answer3}}</td>
+        <td class="warning"  id = "answer4">{{$question->Answer4}}</td>
       </tr>
     </tbody>
   </table>
