@@ -1,0 +1,51 @@
+*{
+	text-align:center;
+}
+
+#tspics {
+	width: 7%;
+	height: 12%;
+	position:absolute;
+	top:30.5%;
+	left:17%;
+}
+
+#tshirtDesigner {
+	width:40%;
+	height:30%;
+	border:2px solid black;
+	border-radius:5px;
+	float:left;
+	margin:20px;
+}
+
+#tshirtDataTable {
+	margin-top:40px;
+}
+
+.tshirtDesigner-colors {
+	width:30px;
+	height:25px;
+	border:2px solid black;
+	border-radius:5px;
+	margin-right:5px;
+}
+
+.radio-btn-size{
+	display:none;
+}
+.radio-btn-color{
+	opacity:0;
+}
+
+.sizeLabel{
+	border:2px solid black;
+	border-radius:5px;
+	width:39px;
+	height:36px;
+	padding:5px;
+}
+
+.sizeLabel:hover{
+	border:2px solid yellow;
+}
