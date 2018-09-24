@@ -20,8 +20,12 @@
 				<li><a href = "ourTs">our tshirts</a></li>
 				<li><a href = "delivery">delivery</a></li>
 				<li><a href = "contact">contact us</a></li>
-				<li><a href = "login">login</a></li>
 			</ul>
+		
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href=""><img src = "icons/glyphicons-400-registration-mark.png"> Sign Up</a></li>
+			<li><a href="login"><img src = "icons/glyphicons-387-log-in.png"> Login</a></li>	
+		</ul>
 		</div>
 		</nav>
 		
@@ -31,5 +35,6 @@
 		<a>copyrigth Tom</a><br>
 		<a>2018</a>		
 	</nav>
+	<script type = "text/javascript" src = "js/NewSkin.js"></script>
     </body>
 </html>
