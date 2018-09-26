@@ -1,12 +1,12 @@
 @extends('designMain')
 
 @section('img')
-	<img id = "tspics" src=""  alt="here is your picture"/>
+	<img id = "tspics" src="uploads/custPics.jpg"  alt="here is your picture"/>
 @endsection
 
 @section('form')
-		<form method = "get" action="pics">
-			<tr><td><label>Your picture: <input type="file" class="form-control" name="imageUpload" onchange ="this.form.submit()"/></td></tr>
+		<form method = "post" action="" enctype="multipart/form-data">
+			<tr><td><label>Your picture: <input type="file" class="form-control" name="imageUpload" onchange ="this.form.submit()"  /></td></tr>
 		</form>
 		<form method="get" action="sw">
 			<tr><td><label>prize: <input type="number" value="{{$tshirt->prize+2000}}" name="prize" readonly /></td></tr>

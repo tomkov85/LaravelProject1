@@ -16,5 +16,7 @@ Route::get('/', function () {
 });
 Route::get('/home', 'ProductController@index');
 Route::get('/ourTs', 'ProductController@index');
+Route::get('/custTs', 'ProductController@customersShow');
+Route::post('/custTs', 'ProductController@checkUploadCustPics');
 Route::get('/{id}', 'ProductController@show');
 

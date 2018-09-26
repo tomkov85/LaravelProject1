@@ -9,7 +9,7 @@ class ProductController extends Controller
 {
     /**
      * Display the home view
-     *DB::table('tspics')->groupBy('tag')->get();
+     *
      * @return index.blade.php
      */
 	public function index() {
@@ -19,9 +19,9 @@ class ProductController extends Controller
 	}
 	
 	 /**
-     * Display the home view
-     *
-     * @return index.blade.php
+     * Displays the tsPics at current id
+     * param String picsId
+     * @return show.blade.php
      */
 	public function show($name) {
 		$tshirtColor = $_GET['color'];
@@ -36,6 +36,12 @@ class ProductController extends Controller
 			return view('show', ['tshirtpics' => $tshirtpics, 'tshirt' => $tshirt, 'tshirtSize' => $tshirtSize, 'picsDesigner' => $picsDesigner]);			
 		}
 	}
+	
+	 /**
+     * Displays the customers pics
+     *
+     * @return customerDesign.blade.php
+     */
 	
 	public function customersShow() {
 		if(empty($_GET['color'])) {
@@ -82,9 +88,37 @@ class ProductController extends Controller
 		return view('search', ['searchTable' => $searchTable, 'tagTable' => $tagTable, 'popularPics'=> $popularPics]);
 	}
 	
-	public function checkPics(){
-		$fileName = basename($fileData["imageUpload"]);
-		echo $fileName;
+	 /**
+     * Checks and upload the customers picture
+     *	param Request input
+     * @return back to the source
+     */
+	
+	public function checkUploadCustPics(Request $request){
+		
+		$this->validate($request, [
+		'imageUpload' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+		]);
+		
+		if (!$request->hasFile('imageUpload')) {
+			return back();
+		}else{
+			$image = $request->file('imageUpload');
+			$image->move(public_path("uploads"), "custPics.jpg");
+			return back();
+		}
 	}
+	
+	/*
+	public function login(Request $request) {
+		
+		if(!empty($request->imageUpload)) {
+			echo '<h1>success<h1>';
+		} else {
+			echo '<h1>error<h1>';
+		}
+		return view('login');
+	}
+	*/
 	
 }
