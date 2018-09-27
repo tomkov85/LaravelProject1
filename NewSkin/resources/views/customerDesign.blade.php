@@ -1,7 +1,7 @@
 @extends('designMain')
 
 @section('img')
-	<img id = "tspics" src="uploads/custPics.jpg"  alt="here is your picture"/>
+	<img id = "tspics" src="{{$custPicsSrc}}"  alt="here is your picture"/>
 @endsection
 
 @section('form')

@@ -23,7 +23,7 @@
 			</ul>
 		
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href=""><img src = "icons/glyphicons-400-registration-mark.png"> Sign Up</a></li>
+			<li><a href="register"><img src = "icons/glyphicons-400-registration-mark.png"> Sign Up</a></li>
 			<li><a href="login"><img src = "icons/glyphicons-387-log-in.png"> Login</a></li>	
 		</ul>
 		</div>
@@ -31,10 +31,10 @@
 		
 		@yield('content')
 		
-	<nav class = "navbar navbar-inverse navbar-fixed-bottom">
-		<a>copyrigth Tom</a><br>
-		<a>2018</a>		
-	</nav>
+	<footer class = "navbar navbar-inverse navbar-fixed-bottom">
+		<div>copyrigth Tom</div>
+		<div>2018</div>		
+	</footer>
 	<script type = "text/javascript" src = "js/NewSkin.js"></script>
     </body>
 </html>

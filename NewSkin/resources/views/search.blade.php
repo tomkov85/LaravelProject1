@@ -41,5 +41,5 @@
 		</tr>
 	
 <table>
-{{$searchTable->links()}}
+
 @endsection

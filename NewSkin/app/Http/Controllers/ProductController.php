@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
-{
+{	
     /**
      * Display the home view
      *
@@ -53,7 +53,15 @@ class ProductController extends Controller
 		}
 		$tshirt = DB::table('tshirts')->get()->where('color',$tshirtColor)->first();
 		
-		return view('customerDesign', ['tshirt' => $tshirt, 'tshirtSize' => $tshirtSize]);
+		session()->put('currentTshirt', $tshirt);
+		session()->put('currentTshirtSize',$tshirtSize);
+		if(empty(session()->get('currentCustPics'))) {
+			$currentCustPics = "";
+		} else {
+			$currentCustPics = session()->get('currentCustPics');
+		}
+		
+		return view('customerDesign', ['tshirt' => $tshirt, 'tshirtSize' => $tshirtSize, 'custPicsSrc' => $currentCustPics]);
 	}
 	
 	 /**
@@ -69,14 +77,14 @@ class ProductController extends Controller
 		if(empty($_GET['searchField'])) {
 			if(!empty($_GET['searchTag'])) {
 				$searchByTagKeyWord = $_GET['searchTag'];
-				$searchTable = DB::table('tspics')->where('tag',$searchByTagKeyWord)->orderBy('name','desc')->paginate(12);
+				$searchTable = DB::table('tspics')->where('tag',$searchByTagKeyWord)->orderBy('name','desc')->paginate(2);
 			}
 		} else {
 			$keyword = $_GET['searchField'];
-			$searchTable = DB::table('tspics')->where('name','like',"%$keyword%")->orderBy('name','desc')->paginate(12);
+			$searchTable = DB::table('tspics')->where('name','like',"%$keyword%")->orderBy('name','desc')->paginate(2);
 			if($_GET['searchTag'] != "All") {
 				$searchByTagKeyWord = $_GET['searchTag'];
-				$searchTable = DB::table('tspics')->where('name','like',"%$keyword%")->where('tag',$searchByTagKeyWord)->paginate(12);
+				$searchTable = DB::table('tspics')->where('name','like',"%$keyword%")->where('tag',$searchByTagKeyWord)->paginate(2);
 			}
 		}
 		
@@ -104,21 +112,19 @@ class ProductController extends Controller
 			return back();
 		}else{
 			$image = $request->file('imageUpload');
-			$image->move(public_path("uploads"), "custPics.jpg");
-			return back();
+			
+			do {
+				$tempPicsId = mt_rand(10000,99999);
+				$tempPicsFileName = "custPicsId".$tempPicsId.".jpg"; 
+			} while(file_exists("uploads/".$tempPicsFileName));
+			
+			session()->put('currentCustPics', "uploads/".$tempPicsFileName);
+			$image->move(public_path("uploads"), $tempPicsFileName);
+			
+			return view('customerDesign', ['tshirt' => session()->get('currentTshirt'), 'tshirtSize' => session()->get('currentTshirtSize'), 'custPicsSrc' => "uploads/".$tempPicsFileName]);
 		}
-	}
+	}	
+
 	
-	/*
-	public function login(Request $request) {
-		
-		if(!empty($request->imageUpload)) {
-			echo '<h1>success<h1>';
-		} else {
-			echo '<h1>error<h1>';
-		}
-		return view('login');
-	}
-	*/
 	
 }
