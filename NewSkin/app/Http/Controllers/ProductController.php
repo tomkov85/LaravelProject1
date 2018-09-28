@@ -101,7 +101,6 @@ class ProductController extends Controller
      *	param Request input
      * @return back to the source
      */
-	
 	public function checkUploadCustPics(Request $request){
 		
 		$this->validate($request, [
@@ -124,7 +123,33 @@ class ProductController extends Controller
 			return view('customerDesign', ['tshirt' => session()->get('currentTshirt'), 'tshirtSize' => session()->get('currentTshirtSize'), 'custPicsSrc' => "uploads/".$tempPicsFileName]);
 		}
 	}	
+	
+	/**
+     * Creates a new Order List
+     *	
+     * 
+     */
+	public function createNewOrder(Request $request) {
+		if(session()->get('userOrderList') == null) {
+			$array = [[$request->prize, $request->tshirtColor,$request->tshirtSize]];
+			session()->put('userOrderList', $array);
+			session()->put('userOrderPrizeSum', $request->prize);
+		} else {
+			$userOrderListArray = session()->get('userOrderList');
+			array_push($userOrderListArray,[$request->prize, $request->tshirtColor,$request->tshirtSize]);
+			session()->put('userOrderList', $userOrderListArray);
+			session()->put('userOrderPrizeSum', (session()->get('userOrderPrizeSum') + $request->prize));
+		}
 
+		return back();	
+	}
 	
-	
+	/**
+     * Show customers shopping cart
+     *	
+     * 
+     */
+	public function showShoppingCart() {
+		return view('shoppingCart');
+	}
 }
