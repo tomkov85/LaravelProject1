@@ -129,17 +129,19 @@ class ProductController extends Controller
      *	
      * 
      */
-	public function createNewOrder(Request $request) {
+	public function addToShoppingCart(Request $request) {
 		if(session()->get('userOrderList') == null) {
-			$array = [[$request->prize, $request->tshirtColor,$request->tshirtSize]];
+			$array = [[$request->prize,$request->tshirtColor,$request->tshirtSize,$request->tshirtPics]];
 			session()->put('userOrderList', $array);
 			session()->put('userOrderPrizeSum', $request->prize);
 		} else {
 			$userOrderListArray = session()->get('userOrderList');
-			array_push($userOrderListArray,[$request->prize, $request->tshirtColor,$request->tshirtSize]);
+			array_push($userOrderListArray,[$request->prize, $request->tshirtColor,$request->tshirtSize,$request->tshirtPics]);
 			session()->put('userOrderList', $userOrderListArray);
 			session()->put('userOrderPrizeSum', (session()->get('userOrderPrizeSum') + $request->prize));
 		}
+		$array1 = session()->get('userOrderList');
+		unset($array1);
 
 		return back();	
 	}
@@ -152,4 +154,19 @@ class ProductController extends Controller
 	public function showShoppingCart() {
 		return view('shoppingCart');
 	}
+	
+	/**
+     * delete item from orderlist
+     *	
+     * returns to request page
+     */
+	 public function deleteOrderListItem() {
+		$olArray = session()->get('userOrderList');
+		$index = $_GET['index'];
+		session()->put('userOrderPrizeSum', session()->get('userOrderPrizeSum') - $olArray[$index][0]);
+		unset($olArray[$index]);
+		session()->put('userOrderList', $olArray);		
+		return back();
+	}
+	
 }

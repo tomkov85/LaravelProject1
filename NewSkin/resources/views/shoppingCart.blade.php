@@ -2,15 +2,21 @@
 
 @section('content')
 
-<table class = "table table-stripped table-bordered table-hover shoppingCart-table">
+<table id = "shoppingCart-table" class = "table table-stripped table-hover shoppingCart-table">
 	<caption><center>Your Shopping Cart<center></caption>
 	<tr><th>Product</th><th>Color</th><th>Size</th><th>Prize</th><th>Number</th><th>Delete</th><tr>
-	
-	@foreach(session()->get('userOrderList') as $items)
-	<tr><td>name</td><td>{{$items[1]}}</td><td>{{$items[2]}}</td><td>{{$items[0]}}</td><td class = "shoppingCart-number-cell"><input class = "shoppingCart-number-cell" type = "number" value = "1"></td><td><button class = "btn btn-danger">X</button></td><tr>
+	<form method = "POST" action = "order" >
+	@foreach(session()->get('userOrderList') as $key => $items)
+	<tr>
+		<td><img class = "shoppingCart-Img" src="{{$items[3]}}"  alt="here is your picture"/><input type = "hidden" name = "{{'userOrderPics'.$key}}" value = "{{$items[3]}}" /></td><td><input class = "shoppingCart-small-cell" type = "text" name = "{{'userOrderColor'.$key}}" value = "{{$items[1]}}" readonly /></td>
+		<td><input class = "shoppingCart-small-cell" type = "text" name = "{{'userOrderSize'.$key}}" value = "{{$items[2]}}" readonly /></td>
+		<td><input class = "shoppingCart-small-cell" type = "number" name = "{{'userOrderPrize'.$key}}" value = "{{$items[0]}}" readonly /></td>
+		<td><input class = "shoppingCart-small-cell" type = "number" value = "1"/></td> 
+		<td class = "shoppingCart-small-cell" ><a class = "btn btn-danger shoppingCart-small-cell" href = "deleteOI?index={{$key}}">X</a></td>
+	</tr>
 	@endforeach
-	
-	<tr><td></td><td></td><td></td><td>Sum:</td><td>{{session()->get('userOrderPrizeSum')}}</td></tr>
+	</form>
+	<tr><td></td><td></td><td>Sum:</td><td >{{session()->get('userOrderPrizeSum')}}</td><td></td><td></td></tr>
 	</table>
 	
 	@endsection
