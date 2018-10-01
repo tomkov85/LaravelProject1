@@ -7,16 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {	
-    /**
-     * Display the home view
-     *
-     * @return index.blade.php
-     */
-	public function index() {
-		$popularPicsTable = DB::table('tspics')->orderBy('orders','desc')->limit(4)->get();
-		$tagTable = DB::table('tspics')->groupBy('tag')->get();
-		return view('index', ['popularPicsTable' => $popularPicsTable, 'tagTable' => $tagTable]);
-	}
 	
 	 /**
      * Displays the tsPics at current id
@@ -65,41 +55,9 @@ class ProductController extends Controller
 	}
 	
 	 /**
-     * Display the search view
-     *
-     * @return search.blade.php
-     */
-	
-	public function showSearchPage() {
-		$tagTable = DB::table('tspics')->groupBy('tag')->get();
-		$searchTable = null;
-		$popularPics = false;
-		if(empty($_GET['searchField'])) {
-			if(!empty($_GET['searchTag'])) {
-				$searchByTagKeyWord = $_GET['searchTag'];
-				$searchTable = DB::table('tspics')->where('tag',$searchByTagKeyWord)->orderBy('name','desc')->paginate(2);
-			}
-		} else {
-			$keyword = $_GET['searchField'];
-			$searchTable = DB::table('tspics')->where('name','like',"%$keyword%")->orderBy('name','desc')->paginate(2);
-			if($_GET['searchTag'] != "All") {
-				$searchByTagKeyWord = $_GET['searchTag'];
-				$searchTable = DB::table('tspics')->where('name','like',"%$keyword%")->where('tag',$searchByTagKeyWord)->paginate(2);
-			}
-		}
-		
-		if($searchTable == null | (count($searchTable) == 0)) {
-			$searchTable = DB::table('tspics')->orderBy('orders','desc')->limit(4)->get();
-			$popularPics = true;
-		}
-		
-		return view('search', ['searchTable' => $searchTable, 'tagTable' => $tagTable, 'popularPics'=> $popularPics]);
-	}
-	
-	 /**
      * Checks and upload the customers picture
      *	param Request input
-     * @return back to the source
+     * @returns to request page
      */
 	public function checkUploadCustPics(Request $request){
 		
@@ -123,50 +81,5 @@ class ProductController extends Controller
 			return view('customerDesign', ['tshirt' => session()->get('currentTshirt'), 'tshirtSize' => session()->get('currentTshirtSize'), 'custPicsSrc' => "uploads/".$tempPicsFileName]);
 		}
 	}	
-	
-	/**
-     * Creates a new Order List
-     *	
-     * 
-     */
-	public function addToShoppingCart(Request $request) {
-		if(session()->get('userOrderList') == null) {
-			$array = [[$request->prize,$request->tshirtColor,$request->tshirtSize,$request->tshirtPics]];
-			session()->put('userOrderList', $array);
-			session()->put('userOrderPrizeSum', $request->prize);
-		} else {
-			$userOrderListArray = session()->get('userOrderList');
-			array_push($userOrderListArray,[$request->prize, $request->tshirtColor,$request->tshirtSize,$request->tshirtPics]);
-			session()->put('userOrderList', $userOrderListArray);
-			session()->put('userOrderPrizeSum', (session()->get('userOrderPrizeSum') + $request->prize));
-		}
-		$array1 = session()->get('userOrderList');
-		unset($array1);
-
-		return back();	
-	}
-	
-	/**
-     * Show customers shopping cart
-     *	
-     * 
-     */
-	public function showShoppingCart() {
-		return view('shoppingCart');
-	}
-	
-	/**
-     * delete item from orderlist
-     *	
-     * returns to request page
-     */
-	 public function deleteOrderListItem() {
-		$olArray = session()->get('userOrderList');
-		$index = $_GET['index'];
-		session()->put('userOrderPrizeSum', session()->get('userOrderPrizeSum') - $olArray[$index][0]);
-		unset($olArray[$index]);
-		session()->put('userOrderList', $olArray);		
-		return back();
-	}
 	
 }

@@ -10,13 +10,18 @@
 	<tr>
 		<td><img class = "shoppingCart-Img" src="{{$items[3]}}"  alt="here is your picture"/><input type = "hidden" name = "{{'userOrderPics'.$key}}" value = "{{$items[3]}}" /></td><td><input class = "shoppingCart-small-cell" type = "text" name = "{{'userOrderColor'.$key}}" value = "{{$items[1]}}" readonly /></td>
 		<td><input class = "shoppingCart-small-cell" type = "text" name = "{{'userOrderSize'.$key}}" value = "{{$items[2]}}" readonly /></td>
-		<td><input class = "shoppingCart-small-cell" type = "number" name = "{{'userOrderPrize'.$key}}" value = "{{$items[0]}}" readonly /></td>
-		<td><input class = "shoppingCart-small-cell" type = "number" value = "1"/></td> 
+		<td><input id = "{{'orderItemPrize'.$key}}" class = "shoppingCart-small-cell" type = "number" name = "{{'userOrderPrize'.$key}}" value = "{{$items[0]}}" readonly /></td>
+		<td><input id = "{{'orderItemNumberVisiable'.$key}}" onfocus = "incializeOrderItemNumber({{$key}})" onblur = "changeOrderItemNumber({{$key}})" class = "shoppingCart-small-cell" type = "number" name = "{{'userOrderItemNumber'.$key}}" value = "1"/></td> 
 		<td class = "shoppingCart-small-cell" ><a class = "btn btn-danger shoppingCart-small-cell" href = "deleteOI?index={{$key}}">X</a></td>
 	</tr>
 	@endforeach
-	</form>
-	<tr><td></td><td></td><td>Sum:</td><td >{{session()->get('userOrderPrizeSum')}}</td><td></td><td></td></tr>
+	<tr><td></td><td>
+		</td><td>Sum:</td><td id = "orderPrizeSum" >{{session()->get('userOrderPrizeSum')}}</td>
+		<td><input id = "orderSubmitButton" class = "btn btn-success" type = "submit" value = "Send"/></td>
+		<td><input type = "hidden" name = "orderItemNumberIndex" value = "{{count(session()->get('userOrderList'))}}"/></td>
+	</tr>
 	</table>
 	
+	
+	</form>
 	@endsection

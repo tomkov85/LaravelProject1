@@ -24,12 +24,6 @@ class LoginController extends Controller
 
 use AuthenticatesUsers;
 
-
-protected function authenticated(Request $request, $user)
-{
-	return redirect()->action('ProductController@index');
-}
-
     /**
      * Where to redirect users after login.
      *

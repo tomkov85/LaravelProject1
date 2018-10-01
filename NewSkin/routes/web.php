@@ -14,16 +14,18 @@
 
 Route::get('/home', 'PageController@index');
 
-Route::get('/ourTs', 'ProductController@showSearchPage');
+Route::get('/ourTs', 'PageController@showSearchPage');
 Route::get('/custTs', 'ProductController@customersShow');
 Route::post('/custTs', 'ProductController@checkUploadCustPics');
 
 Route::get('/delivery', 'PageController@showDeliveryPage');
 Route::get('/contact', 'PageController@showContactPage');
 
-Route::get('/addToShoppingCart', 'ProductController@addToShoppingCart');
-Route::get('/deleteOI', 'ProductController@deleteOrderListItem');
-Route::get('/shopppingCart', 'ProductController@showShoppingCart');
+Route::get('/addToShoppingCart', 'OrderController@addToShoppingCart');
+Route::get('/deleteOI', 'OrderController@deleteOrderListItem');
+Route::get('/shopppingCart', 'OrderController@showShoppingCart');
+
+Route::post('/order', 'OrderController@setOrder');
 
 Auth::routes();
 
