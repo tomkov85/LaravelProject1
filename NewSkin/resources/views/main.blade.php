@@ -26,16 +26,17 @@
 		@if(session()->get('userOrderPrizeSum') != "" )
 			<li><a href="shopppingCart"><img src = "icons/glyphicons-203-shopping-cart.png"> Cart: {{session()->get('userOrderPrizeSum')}}</a></li>
 		@endif
-		@if(session()->get('loggedUser') == "" )
-			<li><a href="register"><img src = "icons/glyphicons-400-registration-mark.png"> Sign Up</a></li>
-			<li><a href="login"><img src = "icons/glyphicons-387-log-in.png"> Login</a></li>	
+		@if(Auth::guest())
+			<li><a href="{{ route('register') }}"><img src = "icons/glyphicons-400-registration-mark.png"> Sign Up</a></li>
+			<li><a href="{{ route('login') }}"><img src = "icons/glyphicons-387-log-in.png"> Login</a></li>	
 		@endif
-		@if(session()->get('loggedUser') != "")
-			<li class = "dropdown"><a class ="dropdown-toggle" data-toggle ="dropdown">{{session()->get('loggedUser')}}<span class ='caret'></span></a>
+		@if(Auth::check())
+			<li class = "dropdown"><a class ="dropdown-toggle" data-toggle ="dropdown">{{Auth::user()->email}}<span class ='caret'></span></a>
 				<ul class = "dropdown-menu">
+					<li><a href = "updateUser">modify data</a></li>
 					<li><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: one;">
 							{{ csrf_field() }}
-							<a class="nav-link text-success btn btn-outline-success" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+							<input type = "submit" value = "Logout"/>
 						</form>
 					</li>
 				</ul>

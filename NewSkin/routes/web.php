@@ -27,6 +27,9 @@ Route::get('/shopppingCart', 'OrderController@showShoppingCart');
 
 Route::post('/order', 'OrderController@setOrder');
 
+Route::get('/updateUser', 'UserController@show');
+Route::post('/updateUser', 'UserController@update');
+
 Auth::routes();
 
 Route::get('/{id}', 'ProductController@show');
