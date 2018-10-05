@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Data modification') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ }}">
+                    <form method="POST" action="{{$_SERVER['PHP_SELF']}}">
                         @csrf
 
                         <div class="form-group row">
@@ -54,28 +54,6 @@
                             <div class="col-md-6">
                                 <input id="phoneNumber" type="number" class="form-control" name="phoneNumber" value="{{ $userPhone }}">
                                
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('New Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
 

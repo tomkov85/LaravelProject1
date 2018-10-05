@@ -70,11 +70,18 @@ footer {
 	color:grey;
 }
 
-.shoppingCart-number-cell {
+.shoppingCart-small-cell {
 	width:50px;
 }
 
 .shoppingCart-table {
-	width:80%;
+	width:40%;
 	text-align:center;
+	margin-left:50px;
+	border: 1px solid lightgray;
+}
+
+.shoppingCart-Img {
+	width:50px;
+	height:40px;
 }

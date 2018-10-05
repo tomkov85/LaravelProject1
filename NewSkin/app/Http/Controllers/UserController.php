@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\PasswordReset;
 
 class UserController extends Controller
 {
@@ -12,82 +16,135 @@ class UserController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
+
+	/**
+     * Display the change password form.
      *
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function showChangePasswordForm()
     {
-        //
+		return view('auth.passwords.change');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
+	
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function showUserDatas()
     {
-		$userId = Auth::id();
-		$userDatas = DB::table('users')->get()->where('id',$userId)->first();
-        return view("auth.updateUser", ['userName' => $userDatas->name, 'userEmail' => $userDatas->email, 
+		$userDatas = Auth::user();
+        return view("auth.manageUserAccount", ['userName' => $userDatas->name, 'userEmail' => $userDatas->email, 
 		    'userAddress' => $userDatas->address, 'userPhone' => $userDatas->telephone]);
     }
+	
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the user datas.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateUserDatas(Request $request)
     {
-        //
+        $this->validate($request, $this->userDatasRules(), $this->validationErrorMessages());
+		
+		$user->name = $request->name;
+		
+		$user->email = $request->email;
+		
+		$user->address = $request->address;
+		
+		$user->telephone = $request->phoneNumber;
+		
+		$user->updated_at = now();
+
+        $user->save();
+		
+		return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
+	/**
+     * Update the password.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function updatePassword(Request $request)
     {
-        //
+        $this->validate($request, $this->changePasswordRules(), $this->validationErrorMessages());
+		if($request->password === $request->password_confirmation) {
+			$user = Auth::user();
+
+				$user->password = Hash::make($request->password);
+
+				$user->setRememberToken(Str::random(60));
+
+				$user->save();
+
+				event(new PasswordReset($user));
+
+				Auth::guard()->login($user);
+				
+				return $this->showUserDatas();
+		}
+    }
+	
+    /**
+     * Remove the account from storage.
+     *
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy()
+    {
+        $user = Auth::user();
+		$user->delete();
+		return view('/home');
+    }
+	
+	/**
+     * Get the data modification validation rules.
+     *
+     * @return array
+     */
+    protected function userDatasRules()
+    {
+        return [
+            'name' => 'required',
+            'email' => 'required|email',
+            'address' => 'required',
+			'phoneNumber' => 'required|integer',
+        ];
+    }
+
+	/**
+     * Get the data modification validation rules.
+     *
+     * @return array
+     */
+    protected function changePasswordRules()
+    {
+        return [
+            'old_password' => 'required|string|min:6',
+            'password' => 'required|string|min:6',
+            'password_confirmation' => 'required|string|min:6',
+        ];
+    }
+	
+	
+    /**
+     * Get the data modification validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+    {
+        return [];
     }
 }

@@ -8,10 +8,10 @@
 	<form method = "POST" action = "order" >
 	@foreach(session()->get('userOrderList') as $key => $items)
 	<tr>
-		<td><img class = "shoppingCart-Img" src="{{$items[3]}}"  alt="here is your picture"/><input type = "hidden" name = "{{'userOrderPics'.$key}}" value = "{{$items[3]}}" /></td><td><input class = "shoppingCart-small-cell" type = "text" name = "{{'userOrderColor'.$key}}" value = "{{$items[1]}}" readonly /></td>
-		<td><input class = "shoppingCart-small-cell" type = "text" name = "{{'userOrderSize'.$key}}" value = "{{$items[2]}}" readonly /></td>
-		<td><input id = "{{'orderItemPrize'.$key}}" class = "shoppingCart-small-cell" type = "number" name = "{{'userOrderPrize'.$key}}" value = "{{$items[0]}}" readonly /></td>
-		<td><input id = "{{'orderItemNumberVisiable'.$key}}" onfocus = "incializeOrderItemNumber({{$key}})" onblur = "changeOrderItemNumber({{$key}})" class = "shoppingCart-small-cell" type = "number" name = "{{'userOrderItemNumber'.$key}}" value = "1"/></td> 
+		<td><img class = "shoppingCart-Img" src="{{$items['tsPics']}}"  alt="here is your picture"/></td><td><input class = "shoppingCart-small-cell" type = "text" name = "{{'userOrderColor'.$key}}" value = "{{$items['color']}}" readonly /></td>
+		<td><input class = "shoppingCart-small-cell" type = "text" name = "{{'userOrderSize'.$key}}" value = "{{$items['size']}}" readonly /></td>
+		<td><input id = "{{'orderItemPrize'.$key}}" class = "shoppingCart-small-cell" type = "number" name = "{{'userOrderPrize'.$key}}" value = "{{$items['prize']}}" readonly /></td>
+		<td><input id = "{{'orderItemNumberVisiable'.$key}}" onfocus = "incializeOrderItemNumber({{$key}})" onblur = "changeOrderItemNumber({{$key}})" class = "shoppingCart-small-cell" type = "number" name = "{{'userOrderItemNumber'.$key}}" value = "{{$items['number']}}"/></td> 
 		<td class = "shoppingCart-small-cell" ><a class = "btn btn-danger shoppingCart-small-cell" href = "deleteOI?index={{$key}}">X</a></td>
 	</tr>
 	@endforeach

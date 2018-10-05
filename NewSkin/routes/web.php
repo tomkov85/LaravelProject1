@@ -26,9 +26,18 @@ Route::get('/deleteOI', 'OrderController@deleteOrderListItem');
 Route::get('/shopppingCart', 'OrderController@showShoppingCart');
 
 Route::post('/order', 'OrderController@setOrder');
+Route::post('/orderForm', 'OrderController@insertOrder');
+Route::get('/orderConfirmation', 'OrderController@showOrderConfirm')->name('/orderConfirmation');
 
-Route::get('/updateUser', 'UserController@show');
-Route::post('/updateUser', 'UserController@update');
+Route::get('/updateUser', 'UserController@showUserDatas');
+Route::post('/updateUser', 'UserController@updateUserDatas');
+
+Route::get('/changeUserPassword', 'UserController@showChangePasswordForm');
+Route::post('/changeUserPassword', 'UserController@updatePassword');
+
+Route::get('/resetUserPassword', 'UserController@edit');
+
+Route::get('/deleteAccount', 'UserController@destroy');
 
 Auth::routes();
 
