@@ -17,7 +17,7 @@
 	@endforeach
 	<tr><td></td><td>
 		</td><td>Sum:</td><td id = "orderPrizeSum" >{{session()->get('userOrderPrizeSum')}}</td>
-		<td><input id = "orderSubmitButton" class = "btn btn-success" type = "submit" value = "Send"/></td>
+		<td><input id = "orderSubmitButton" class = "btn btn-success" type = "submit" value = "Purchase"/></td>
 		<td><input type = "hidden" name = "orderItemNumberIndex" value = "{{count(session()->get('userOrderList'))}}"/></td>
 	</tr>
 	</table>

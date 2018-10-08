@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
@@ -90,9 +91,16 @@ class OrderController extends Controller
 		$this->validate($request, $this->userDatasRules(), $this->validationErrorMessages());
 		$currentDate = now();
 		foreach(session()->get('userOrderList') as $item) {
+			if(substr($item['tsPics'],29,4) === "temp") {
+				$item['tsPics'] = substr($item['tsPics'],21,strlen($item['tsPics']));
+				$oldsrc = $item['tsPics'];
+				$item['tsPics'] = "samples/orders/".substr($item['tsPics'],13,strlen($item['tsPics']));
+				Storage::move($oldsrc,$item['tsPics']);
+			}
 			DB::table('orders')->insert(['id'=>null,'tsPics'=>$item['tsPics'],'color'=>$item['color'],'size'=>$item['size'],'prize'=>$item['prize'],
 				'number'=>$item['number'],'name'=>$request->name,'address'=>$request->address,'phone'=>$request->phoneNumber,'created_at'=>$currentDate, 'updated_at'=>$currentDate]);
 		}
+		
 		session()->put('userOrderList', null);
 		session()->put('userOrderPrizeSum', null);
 		return redirect()->route('/orderConfirmation');

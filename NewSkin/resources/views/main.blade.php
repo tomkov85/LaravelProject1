@@ -16,8 +16,8 @@
 				<a class="navbar-brand" href = "home">NewSkin</a>
 			</div>
 			<ul class = "nav navbar-nav">
-				<li><a href = "custTs">customers tshirt</a></li>
-				<li><a href = "ourTs">our tshirts</a></li>
+				<li><a href = "custTs">your pics</a></li>
+				<li><a href = "ourTs">our samples</a></li>
 				<li><a href = "delivery">delivery</a></li>
 				<li><a href = "contact">contact us</a></li>
 			</ul>

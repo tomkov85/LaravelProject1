@@ -68,17 +68,9 @@ class ProductController extends Controller
 		if (!$request->hasFile('imageUpload')) {
 			return back();
 		}else{
-			$image = $request->file('imageUpload');
+			$path = $request->file('imageUpload')->store('samples/temp');
 			
-			do {
-				$tempPicsId = mt_rand(10000,99999);
-				$tempPicsFileName = "custPicsId".$tempPicsId.".jpg"; 
-			} while(file_exists("uploads/".$tempPicsFileName));
-			
-			session()->put('currentCustPics', "uploads/".$tempPicsFileName);
-			$image->move(public_path("uploads"), $tempPicsFileName);
-			
-			return view('customerDesign', ['tshirt' => session()->get('currentTshirt'), 'tshirtSize' => session()->get('currentTshirtSize'), 'custPicsSrc' => "uploads/".$tempPicsFileName]);
+			return view('customerDesign', ['tshirt' => session()->get('currentTshirt'), 'tshirtSize' => session()->get('currentTshirtSize'), 'custPicsSrc' => "/NewSkin/storage/app/".$path]);
 		}
 	}	
 	
