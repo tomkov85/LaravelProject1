@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\OrderShipped;
 
 class OrderController extends Controller
 {
@@ -100,7 +102,7 @@ class OrderController extends Controller
 			DB::table('orders')->insert(['id'=>null,'tsPics'=>$item['tsPics'],'color'=>$item['color'],'size'=>$item['size'],'prize'=>$item['prize'],
 				'number'=>$item['number'],'name'=>$request->name,'address'=>$request->address,'phone'=>$request->phoneNumber,'created_at'=>$currentDate, 'updated_at'=>$currentDate]);
 		}
-		
+		Mail::to($request->email)->send(new OrderShipped($request->name, session()->get('userOrderList')));
 		session()->put('userOrderList', null);
 		session()->put('userOrderPrizeSum', null);
 		return redirect()->route('/orderConfirmation');
