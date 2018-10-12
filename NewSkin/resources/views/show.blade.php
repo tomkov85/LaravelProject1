@@ -1,7 +1,7 @@
 @extends('designMain')
 
 @section('img')
-	<img id = "tspics" src="{{$tshirtpics->url}}" />
+	<img id = "tspics" src="/NewSkin/public/{{$tshirtpics->url}}" />
 @endsection
 
 @section('form')

@@ -104,8 +104,9 @@ class UserController extends Controller
     public function destroy()
     {
         $user = Auth::user();
+		Auth::logout();
 		$user->delete();
-		return view('/home');
+		return redirect()->route('home');
     }
 	
 	/**
@@ -146,5 +147,17 @@ class UserController extends Controller
     protected function validationErrorMessages()
     {
         return [];
+    }
+	
+	/**
+     * Logs out the user
+     *
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function logout()
+    {
+		Auth::logout();
+		return back();
     }
 }

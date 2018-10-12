@@ -17,6 +17,7 @@
 	</div>
 	<button class="btn btn-primary" type="submit" id = "mainSearchButton"><img src = "icons/glyphicons-28-search.png" /></button>
 </form>
+<br>
 @if(!empty($_GET['searchTag']) & $popularPics)
 <h2>Sorry, no match for {{$_GET['searchField']}} in {{$_GET['searchTag']}} tag</h2>
 @endif
@@ -33,13 +34,16 @@
 			$searchResultNumber++;
 			if($searchResultNumber%4==1){echo '<tr>';}
 		@endphp	
-			<td><a href = "{{$searchResult->name}}?color=white&size=M"><img src="{{$searchResult->url}}" /><br>{{$searchResult->name}}</a><td>
+			<td class = "picsTableCell" ><a href = "show/{{$searchResult->name}}?color=white&size=M"><img class = "picsTableImg" src="{{$searchResult->url}}" /><br>{{$searchResult->name}}</a><td>
 		@php
 			if($searchResultNumber%4==0){echo '</tr>';}
 		@endphp			
 		@endforeach	
-		</tr>
-	
+		</tr>	
 <table>
+<br>
+@if(!$popularPics)
+	<center>{{$searchTable->appends(["searchField" => $_GET['searchField'],"searchTag" => $_GET['searchTag']])->onEachSide(5)->links()}}</center>
+@endif
 
 @endsection

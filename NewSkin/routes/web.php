@@ -12,7 +12,7 @@
 */
 
 
-Route::get('/home', 'PageController@index');
+Route::get('/home', 'PageController@index')->name('home');
 
 Route::get('/ourTs', 'PageController@showSearchPage');
 Route::get('/custTs', 'ProductController@customersShow');
@@ -36,12 +36,13 @@ Route::get('/changeUserPassword', 'UserController@showChangePasswordForm');
 Route::post('/changeUserPassword', 'UserController@updatePassword');
 
 Route::get('/resetUserPassword', 'UserController@edit');
+Route::get('/logout', 'UserController@logout');
 
 Route::get('/deleteAccount', 'UserController@destroy');
 
 Auth::routes();
 
-Route::get('/{id}', 'ProductController@show');
+Route::get('show/{id}', 'ProductController@show');
 
 
 

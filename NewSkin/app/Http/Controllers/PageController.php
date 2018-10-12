@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PageController extends Controller
 {
     /**
      * Display the home view
      *
-     * @return index.blade.php
+     * @return \Illuminate\Http\Response
      */
 	public function index() {
 		$popularPicsTable = DB::table('tspics')->orderBy('orders','desc')->limit(4)->get();
@@ -22,7 +23,7 @@ class PageController extends Controller
 	 /**
      * Display the search view
      *
-     * @return search.blade.php
+     * @return \Illuminate\Http\Response
      */
 	
 	public function showSearchPage() {
@@ -32,14 +33,14 @@ class PageController extends Controller
 		if(empty($_GET['searchField'])) {
 			if(!empty($_GET['searchTag'])) {
 				$searchByTagKeyWord = $_GET['searchTag'];
-				$searchTable = DB::table('tspics')->where('tag',$searchByTagKeyWord)->orderBy('name','desc')->paginate(2);
+				$searchTable = DB::table('tspics')->where('tag',$searchByTagKeyWord)->orderBy('name','desc')->paginate(20);
 			}
 		} else {
 			$keyword = $_GET['searchField'];
-			$searchTable = DB::table('tspics')->where('name','like',"%$keyword%")->orderBy('name','desc')->paginate(2);
+			$searchTable = DB::table('tspics')->where('name','like',"%$keyword%")->orderBy('name','desc')->paginate(20);
 			if($_GET['searchTag'] != "All") {
 				$searchByTagKeyWord = $_GET['searchTag'];
-				$searchTable = DB::table('tspics')->where('name','like',"%$keyword%")->where('tag',$searchByTagKeyWord)->paginate(2);
+				$searchTable = DB::table('tspics')->where('name','like',"%$keyword%")->where('tag',$searchByTagKeyWord)->paginate(20);
 			}
 		}
 		
@@ -54,7 +55,7 @@ class PageController extends Controller
 	/**
      * Display the delivery view
      *
-     * @return delivery.blade.php
+     * @return \Illuminate\Http\Response
      */
 	public function showDeliveryPage() {
 		return view('delivery');
@@ -63,19 +64,9 @@ class PageController extends Controller
 	/**
      * Display the contact view
      *
-     * @return contact.blade.php
+     * @return \Illuminate\Http\Response
      */
 	public function showContactPage() {
 		return view('contact');
 	}
-	
-	/**
-     * Logout the user
-     *	
-     * @return source
-     */
-	 public function logout() {
-		 Auth::logout();
-		 return back();
-	 }
 }

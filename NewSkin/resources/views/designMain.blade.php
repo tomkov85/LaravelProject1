@@ -3,7 +3,7 @@
 @section('content')
 
 <span id="tshirtDesigner">
-	<img src="{{"uploads/tshirts/".$tshirt->color.".jpg"}}" />
+	<img src="/NewSkin/public/uploads/tshirts/{{$tshirt->color.".jpg"}}" />
 	@yield('img')
 </span>
 

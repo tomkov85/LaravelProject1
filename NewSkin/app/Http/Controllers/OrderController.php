@@ -45,7 +45,7 @@ class OrderController extends Controller
 	/**
      * Show customers shopping cart
      *	
-     * @returns shoppingCart.blade.php
+     * @return \Illuminate\Http\Response
      */
 	public function showShoppingCart() {
 		return view('shoppingCart');
@@ -68,7 +68,7 @@ class OrderController extends Controller
 	/**
      * Send the order, and shows items of the shopping cart
      *	
-     * 
+     * @return \Illuminate\Http\Response
      */
 	public function setOrder(Request $request) {
 		$max = intval($request->orderItemNumberIndex);

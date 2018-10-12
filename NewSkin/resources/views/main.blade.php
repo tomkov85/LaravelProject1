@@ -13,18 +13,18 @@
         <nav class = "navbar navbar-inverse">
 		<div class = "container-fluid">
 			<div class = "navbar-header">
-				<a class="navbar-brand" href = "home">NewSkin</a>
+				<a class="navbar-brand" href = "/NewSkin/public/home">NewSkin</a>
 			</div>
 			<ul class = "nav navbar-nav">
-				<li><a href = "custTs">your pics</a></li>
-				<li><a href = "ourTs">our samples</a></li>
-				<li><a href = "delivery">delivery</a></li>
+				<li><a href = "/NewSkin/public/custTs">your pics</a></li>
+				<li><a href = "/NewSkin/public/ourTs?searchField=&searchTag=">our samples</a></li>
+				<li><a href = "/NewSkin/public/delivery">delivery</a></li>
 				<li><a href = "contact">contact us</a></li>
 			</ul>
 		
 		<ul class="nav navbar-nav navbar-right">
 		@if(session()->get('userOrderPrizeSum') != "" )
-			<li><a href="shopppingCart"><img src = "/NewSkin/public/icons/glyphicons-203-shopping-cart.png"> Cart: {{session()->get('userOrderPrizeSum')}}</a></li>
+			<li><a href="/NewSkin/public/shopppingCart"><img src = "/NewSkin/public/icons/glyphicons-203-shopping-cart.png"> Cart: {{session()->get('userOrderPrizeSum')}}</a></li>
 		@endif
 		@if(Auth::guest())
 			<li><a href="{{ route('register') }}"><img src = "/NewSkin/public/icons/glyphicons-400-registration-mark.png"> Sign Up</a></li>
@@ -33,12 +33,9 @@
 		@if(Auth::check())
 			<li class = "dropdown"><a class ="dropdown-toggle" data-toggle ="dropdown">{{Auth::user()->email}}<span class ='caret'></span></a>
 				<ul class = "dropdown-menu">
-					<li><a class = "btn btn-primary" href = "updateUser">modify data</a></li>
-					<li><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: one;">
-							{{ csrf_field() }}
-							<input class = "btn btn-danger" type = "submit" value = "Logout"/>
-						</form>
-					</li>
+					<li></li>
+					<li><a href = "updateUser">Modify datas</a></li>
+					<li><a href = "{{ route('logout') }}">Logout</a></li>
 				</ul>
 			</li>
 		@endif
@@ -47,9 +44,9 @@
 		</nav>
 		
 		@yield('content')
-		
+
 	<footer class = "navbar navbar-inverse navbar-fixed-bottom">
-		<div>copyrigth Tom</div>
+		<div>&#169 copyrigth Tom</div>
 		<div>2018</div>		
 	</footer>
 	<script type = "text/javascript" src = "/NewSkin/public/js/NewSkin.js"></script>

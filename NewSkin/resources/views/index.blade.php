@@ -7,7 +7,7 @@
 <table>
 	<tr>
 	@foreach($popularPicsTable as $pics)
-		<td><a href = "{{$pics->name}}?color=white&size=M"><img src="{{$pics->url}}" /><br>{{$pics->name}}</a><td>
+		<td class = "picsTableCell"><a href = "show/{{$pics->name}}?color=white&size=M"><img class = "picsTableImg" src="{{$pics->url}}" /><br>{{$pics->name}}</a><td>
 	@endforeach
 	</tr>
 </table>
@@ -22,7 +22,7 @@
 			$tagNumber++;
 			if($tagNumber%4==1){echo '<tr>';}
 		@endphp	
-			<td><a href = "{{$tag->name}}?color=white&size=M"><img src="{{$tag->url}}" /><br>{{$tag->tag}}</a><td>
+			<td class = "picsTableCell"><a href = "ourTs?searchField=&searchTag={{$tag->tag}}"><img class = "picsTableImg" src="{{$tag->url}}" /><br>{{$tag->tag}}</a><td>
 		@php
 			if($tagNumber%4==0){echo '</tr>';}
 		@endphp			
