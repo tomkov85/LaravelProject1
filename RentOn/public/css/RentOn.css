@@ -1,0 +1,71 @@
+@charset "UTF-8";
+nav {
+	background-color:brown;
+}
+
+.navLi {
+	margin-top:10px;
+	margin-right:20px;
+	list-style:none;
+}
+
+.navLi::last-child {
+	margin-top:10px;
+	list-style:none;
+}
+
+.navUl {
+	padding:0px;
+	margin:0px;
+}
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+footer {
+	position: relative;
+	bottom: 0;
+	text-align:center;
+	background-color:brown;
+	width: 100%;
+	color: #5bc0de;
+}
+
+#welcomeMessage {
+	margin:30px;
+	text-align:center;
+}
+
+#topSells {
+	margin:100px;
+	text-align:center;
+}
+
+h4 {
+	margin:10px;
+}
+
+form {
+	margin: 30px;
+	width: 60%;
+}
+
+form>div{
+	margin:10px;
+}
+
+.myTable {
+	margin: 30px;
+	width: 50%;
+	height: 20%;
+}
+
+.form-group>div {
+	margin:5px;
+}
+
+#collapse{
+	display:none;
+}
