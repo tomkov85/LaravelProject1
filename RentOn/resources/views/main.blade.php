@@ -17,7 +17,7 @@
 				<a class="navbar-brand" href = "/RentOn/public/">RentOn</a>
 			</div>
 			<ul class = "navbar-nav">			
-				<li class='nav-item navLi'><a href = "/RentOn/public/search">buy/rent</a></li>
+				<li class='nav-item navLi'><a href = "/RentOn/public/search?searchLoc=b&order=prize&searchSizeMin=">buy/rent</a></li>
 				<li class='nav-item navLi'><a href = "/RentOn/public/login">sell</a></li>
 				<li class='nav-item navLi'><a href = "/RentOn/public/contact">contact us</a></li>
 			</ul>

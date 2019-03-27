@@ -69,3 +69,8 @@ form>div{
 #collapse{
 	display:none;
 }
+
+.tableSetts {
+	background-color:pink;
+	margin-right:30px;
+}
