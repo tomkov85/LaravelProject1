@@ -5,11 +5,11 @@
 <form class="form-horizontal" method="GET" action="">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="location">Location:</label>
-		<div class="col-sm-5"><input type="text" class="form-control col-sm-12" name="searchLoc" placeholder="Enter Location"/></div>
-		<button type="submit" class="btn btn-info">Search</button>
-		<a id="collapse-btn">more detail</a>	
+		<div id="searchField" class="col-sm-4"><input type="search" class="form-control" name="searchLoc" placeholder="Enter Location" size='2'/></div><button id='searchFieldBtn' type="submit" class="btn btn-info"><img alt="error" src="icons/glyphicons-28-search.png"/></button>
+		
+		<a id="collapse-btnS">more detail</a>	
 	</div>	
-	<div id="collapse">
+	<div id="collapses">
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="rent">Rent</label><div class="col-sm-1"><input type="radio" name="sellOrRent" value="1"/></div>
 		<label class="control-label col-sm-1" for="sell">Sell</label><div class="col-sm-1"><input type="radio" name="sellOrRent" value="0"/></div>

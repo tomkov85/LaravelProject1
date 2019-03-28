@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {return view('welcome');});
+Route::get('/', function () {return view('home');});
 Route::get('/search', 'SearchController@show');
 Route::get('/selected', 'SearchController@showAdv');
 Route::get('/contact', function () {return view('contact');});
-Route::get('/login', function () {return view('login');});
-Route::get('/regist', function () {return view('regist');});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

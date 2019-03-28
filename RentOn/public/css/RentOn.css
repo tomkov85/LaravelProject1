@@ -1,4 +1,8 @@
 @charset "UTF-8";
+*{
+	font-weight:bold;
+}
+
 nav {
 	background-color:brown;
 }
@@ -66,11 +70,22 @@ form>div{
 	margin:5px;
 }
 
-#collapse{
+#collapses{
 	display:none;
 }
 
 .tableSetts {
 	background-color:pink;
-	margin-right:30px;
+	padding-right:30px;
+}
+
+#searchField {
+	margin-top:0px;
+	margin-right:0px;
+	padding-right:0px;
+	padding-top:0px;
+}
+
+#searchFieldBtn{
+	padding:4px;
 }

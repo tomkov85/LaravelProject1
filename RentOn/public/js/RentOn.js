@@ -2,7 +2,10 @@
  * 
  */
  $(document).ready(function(){
-	 $('#collapse-btn').click(function(){
-		$('#collapse').slideToggle();
+	 $('#collapse-btn1').click(function(){
+		$('#collapse1').slideToggle();
+	 });
+	 $('#collapse-btnS').click(function(){
+		$('#collapses').slideToggle();
 	 });
  });
