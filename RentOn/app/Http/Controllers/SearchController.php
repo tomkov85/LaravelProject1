@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\SearchModel;
 
 class SearchController extends Controller
 {
 	private $whereArray = array();
-    function show() {					
-		SearchController::addWhere('searchLoc','city','like');
-		SearchController::addWhere('searchSizeMin','size','>');
-		SearchController::addWhere('searchSizeMax','size','<');
-		SearchController::addWhere('rentOrSell','sellOrRent','=');
+	private $linkArray = array();
+	
+	/**
+     * Show the result of the advertisements search
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function showSearchResult() {					
+		$this->setWhereArray();
 		
 		if(empty($_GET['order'])) {
 			$order = "size";
@@ -27,22 +32,93 @@ class SearchController extends Controller
 			$pl = $_GET['pageLimit'];
 		}
 		
-		$users = DB::table('advertisements')->where($this->whereArray)->orderBy($order,'desc')->paginate($pl);
-		return view('search',['in'=>$users, 'order'=>$order, 'pageLimit'=>$pl]);
+		if(empty($_GET['page'])) {
+			$currentPage = 0;
+			$currentFinds = 1;
+		} else {
+			$currentPage = $_GET['page'];
+			$currentFinds = (($currentPage - 1) * $pl) + 1;
+		}
+		
+		$advsAll = \App\SearchModel::where($this->whereArray);
+		$all = $advsAll->count();
+		$advs=$advsAll->orderBy($order,'desc')->paginate($pl);
+		
+		$currentFindsMax = $this->getCurrentMaxPage($all, $pl, $currentPage);
+		
+		return view('search',['in'=>$advs, 'order'=>$order, 'pageLimit'=>$pl, 'finds'=>$all, 'cf'=>$currentFinds, 'cfm'=>$currentFindsMax, 'linkArray' => $this->linkArray]);
 	}
 	
-	function addWhere($inputName,$dbCol,$dbRel) {
+	/**
+     * Sets the where options
+     *
+     * @return void
+     */
+	function setWhereArray() {		
+		if(isset($_GET['searchSubmit'])) {
+			$this->addToWhereArray('searchLoc','city','like');
+			$this->addToWhereArray('searchSizeMin','size','>');
+			$this->addToWhereArray('searchSizeMax','size','<');
+			$this->addToWhereArray('rentOrSell','rentOrSell','=');
+
+			session()->put('warray',$this->whereArray);		
+		} else {				
+			$this->whereArray = session()->get('warray');
+		}
+	}
+	
+	/**
+     * Add an element to where array, if the get request is set
+	 *
+	 *@param  String  $inputName
+	 *@param  String  $dbCol
+	 *@param  String  $dbRel
+     *
+     * @return void
+     */
+	function addToWhereArray($inputName,$dbColumn,$dbRelation) {
 		if(!empty($_GET[$inputName])) {
-			if($dbRel==='like') {
-				$this->whereArray[count($this->whereArray)] = [$dbCol,$dbRel,'%'.$_GET[$inputName].'%'];
+			if($dbRelation==='like') {
+				$this->whereArray[count($this->whereArray)] = [$dbColumn,$dbRelation,'%'.$_GET[$inputName].'%'];
 			} else {
-				$this->whereArray[count($this->whereArray)] = [$dbCol,$dbRel,$_GET[$inputName]];
+				$this->whereArray[count($this->whereArray)] = [$dbColumn,$dbRelation,$_GET[$inputName]];
 			}						
 		}
 	}
 	
-	function showAdv() {					
-		$adv = DB::table('advertisements')->where('id','=',$_GET['id'])->get()->first();
-		return view('selected',['adv'=>$adv]);
+	/**
+     * Returns the best advertisements
+     *
+     * @return \Illuminate\Http\Response
+     */
+	function getTopAdvertisements() {				
+	$advs = \App\SearchModel::all()->take(4);
+			
+		return view('home',['advs'=>$advs]);
 	}
+	
+	/**
+     * Calculate the current max page
+     *
+	 *@param  $all array
+	 *@param  $pageLimit Integer
+	 *@param  $currentPage Integer
+	 *
+     * @return Integer
+     */
+	 function getCurrentMaxPage($all, $pageLimit, $currentPage) {
+		 if($all <= $pageLimit) {
+			 return 0;
+		 } else {
+			 if($currentPage===0) {
+				return $pageLimit;
+			} else {
+				if(($currentPage * $pageLimit) > $all) {
+					return $all;
+				} else {
+					return $currentPage*$pageLimit;
+				}
+			}
+		}
+	 }
 }

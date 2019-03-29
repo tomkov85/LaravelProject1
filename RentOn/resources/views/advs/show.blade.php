@@ -1,8 +1,8 @@
 @extends('main')
 
-@section('content')
+@section('content')	
 
-
+			
 	<table class="table table-striped myTable">
 	<caption>{{$adv->title}}</caption>
 		<thead>
@@ -16,5 +16,7 @@
 			<tr><td>{{$adv->advertisementText}}</td></tr>	
 		</tbody>	
 	</table>
-	<a href="" class="btn btn-success">Send a message to the owner</a>
+	<a href="" class="btn btn-success">Send a message to the owner</a>	
+
+
 @endsection

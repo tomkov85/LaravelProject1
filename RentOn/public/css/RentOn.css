@@ -44,11 +44,13 @@ footer {
 
 #topSells {
 	margin:100px;
+	margin-bottom:20px;
 	text-align:center;
 }
 
-h4 {
-	margin:10px;
+.topAdvs{width:100px; 
+		float:left;
+		margin-left:50px;
 }
 
 form {
@@ -88,4 +90,9 @@ form>div{
 
 #searchFieldBtn{
 	padding:4px;
+}
+
+#advTextArea {
+	width:490px;
+	height:134px;
 }
