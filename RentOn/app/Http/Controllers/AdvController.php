@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class AdvController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the advertisement.
      *
      * @return \Illuminate\Http\Response
      */
@@ -22,7 +22,7 @@ class AdvController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new advertisement.
      *
      * @return \Illuminate\Http\Response
      */
@@ -32,7 +32,7 @@ class AdvController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created advertisement in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -40,12 +40,12 @@ class AdvController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'advTitle'=>'required',
-            'advRS'=>'required',
-            'advAddress'=>'required',
-            'advSize'=>'required',
-            'advPrize'=>'required',
-            'advText'=>'required',
+            'advTitle'=>['string', 'max:255','required'],
+            'advRS'=>['required'],
+            'advAddress'=>['string','required'],
+            'advSize'=>['integer','min:1','max:10','required'],
+            'advPrize'=>['integer','min:1','max:10','required'],
+            'advText'=>['string','required'],
         ]);
         
         $adv = new SearchModel();
@@ -66,7 +66,7 @@ class AdvController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified advertisement.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -79,7 +79,7 @@ class AdvController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified advertisement.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -92,7 +92,7 @@ class AdvController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified advertisement in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -103,12 +103,12 @@ class AdvController extends Controller
         $adv = \App\SearchModel::find($id);
                
         $request->validate([
-            'advTitle'=>'required',
-            'advRS'=>'required',
-            'advAddress'=>'required',
-            'advSize'=>'required',
-            'advPrize'=>'required',
-            'advText'=>'required',
+            'advTitle'=>['string', 'max:255','required'],
+            'advRS'=>['required'],
+            'advAddress'=>['string','required'],
+            'advSize'=>['integer','min:1','max:10','required'],
+            'advPrize'=>['integer','min:1','max:10','required'],
+            'advText'=>['string','required'],
         ]);
         
         $adv->title = $request->advTitle;
@@ -127,15 +127,13 @@ class AdvController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified advertisement from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $adv = new SearchModel();
-        
         $adv = \App\SearchModel::find($id);
         $adv->delete();
         

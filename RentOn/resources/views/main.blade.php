@@ -53,7 +53,7 @@
                                         @csrf
                                     </form>
 									<br>
-									<a class="dropdown-item" href="/RentOn/public/datamod?id={{Auth::user()->id}}"> Data modification </a> 
+									<a class="dropdown-item" href="/RentOn/public/editAccount"> Data modification </a> 
 									<br>
 									<a class="dropdown-item" href="/RentOn/public/advMan?id={{Auth::user()->id}}"> Advertisements </a>                                                                 
                                 </div>

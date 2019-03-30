@@ -21,6 +21,10 @@ Route::post('/create', 'AdvController@store');
 Route::get('/edit/{id}', 'AdvController@edit');
 Route::post('/edit/{id}', 'AdvController@update');
 
+Route::get('/editAccount', 'auth\EditAccountController@edit');
+Route::post('/editAccount', 'auth\EditAccountController@update');
+Route::get('/deleteAccount', 'auth\EditAccountController@destroy');
+
 Route::get('/delete/{id}', 'AdvController@destroy');
 
 Route::get('/contact', function () {return view('contact');});
