@@ -21,16 +21,46 @@ nav {
 .navUl {
 	padding:0px;
 	margin:0px;
+	padding-top: 3px;
+	margin-left:5%;
+}
+
+.myDropdownMenu{
+	margin-top: 3px;
+    padding: 5px 5px;
+}
+
+.navbar-header {
+	width:10%;
+}
+
+.logo {
+	width: 100%;
+    margin: -12px;
+    margin-left: 5px;
+    border-radius: 2px;
+}
+
+#collapse-btn1:focus, #collapse-btn1:hover, #collapse-btn1:active{
+	text-decoration:none;
+	color:#337ab7;
+}
+
+
+.userIcons{
+	height: 15px;
+    width: 15px;
 }
 
 #page-container {
-  position: relative;
-  min-height: 100vh;
+    position: relative;
+    min-height: 80vh;
+    padding-left: 5px;
 }
 
 footer {
 	position: relative;
-	bottom: 0;
+	bottom: 5%;
 	text-align:center;
 	background-color:brown;
 	width: 100%;
@@ -63,13 +93,21 @@ form>div{
 }
 
 .myTable {
-	margin: 30px;
+	margin: 3%;
 	width: 50%;
 	height: 20%;
 }
 
+.myTable>tbody>tr>td{
+	width: 40%;
+}
+
 .form-group>div {
 	margin:5px;
+}
+
+#collapse-btnS{
+	cursor:pointer;
 }
 
 #collapses{
@@ -78,7 +116,13 @@ form>div{
 
 .tableSetts {
 	background-color:pink;
-	padding-right:30px;
+	padding-right: 15%;
+	padding-bottom: 6px;
+}
+
+.tableSetts:last-child {
+	padding-bottom: 3px;
+	padding-right: 3%;
 }
 
 #searchField {
@@ -95,4 +139,55 @@ form>div{
 #advTextArea {
 	width:490px;
 	height:134px;
+}
+
+.mySuccessBtn{
+	margin-left:3%;
+}
+
+.contact-logo{
+	width:30%;
+	border:2px solid black
+}
+
+.advMoreImage{
+	width:60%;
+}
+
+.messageTable {
+	margin: 3%;
+	width: 75%;
+	height: 40%;
+}
+
+#messageTextArea {
+	width:100%;
+	height:300px;
+}
+
+.messageManagerTable {
+	width:70%;
+	text-align:center;
+}
+
+.messageManagerTable>thead>tr>th{
+	text-align:center;
+}
+
+.newMessage {
+	background-color:lightgrey;
+}
+
+.messageManagerMenu{
+	list-style: none;
+    float: left;
+    padding-right: 40px;
+}
+
+.eye {
+	width:20px;
+}
+
+.pagination {
+	margin-left:40%;
 }

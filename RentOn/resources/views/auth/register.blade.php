@@ -39,6 +39,33 @@
                             </div>
                         </div>
 
+						<div class="form-group row">
+                            <label for="address" class="col-md-4 col-form-label text-md-right">Address: </label>
+
+                            <div class="col-md-6">
+                                <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}">
+                            </div>
+                        </div>
+						
+						<div class="form-group row">
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">Phone: </label>
+
+                            <div class="col-md-6">
+                                <input id="phone" type="phone" class="form-control" name="phone" value="{{ old('phone') }}">
+                            </div>
+                        </div>
+						
+						<div class="form-group row">
+                            <label for="professional" class="col-md-4 col-form-label text-md-right">Professional: </label>
+
+                            <div class="col-md-10">
+								<label for="professional" class="col-md-3 col-form-label text-md-right">True: </label>
+                                <input id="professional1" type="radio" class="form-control col-sm-3" name="professional" value="1">
+								<label for="professional" class="col-md-3 col-form-label text-md-right">False: </label>
+								<input id="professional2" type="radio" class="form-control col-sm-3" name="professional" value="0">
+                            </div>
+                        </div>
+						
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 

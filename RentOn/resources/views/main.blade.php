@@ -14,10 +14,10 @@
 	<body>
 		<nav class = "navbar">
 			<div class = "navbar-header">
-				<a class="navbar-brand" href = "/RentOn/public/">RentOn</a>
+				<a class="navbar-brand" href = "/RentOn/public/"><img class="logo" alt="error" src="/RentOn/public/RentOnlogo.jpg"/></a>
 			</div>
-			<ul class = "navbar-nav">			
-				<li class='nav-item navLi'><a href = "/RentOn/public/search?searchLoc=&order=prize&searchSizeMin=">buy/rent</a></li>
+			<ul class = "navbar-nav navUl">			
+				<li class='nav-item navLi'><a href = "/RentOn/public/search?searchLoc=&order=&prize=&searchSizeMin=">buy/rent</a></li>
 				<li class='nav-item navLi'><a href = "/RentOn/public/login">sell</a></li>
 				<li class='nav-item navLi'><a href = "/RentOn/public/contact">contact us</a></li>
 			</ul>
@@ -39,23 +39,32 @@
                         @else
                             <li class="nav-item dropdown navLi">
                                 <a id="collapse-btn1" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img alt="error" src="/RentOn/public/icons/glyphicons-4-user.png"/>{{ Auth::user()->name }} <span class="caret"></span>
+                                    <img alt="error" src="/RentOn/public/icons/glyphicons-4-user.png"/> {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div  id='collapse1' class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                <div  id='collapse1' class="dropdown-menu dropdown-menu-right myDropdownMenu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/RentOn/public/manageMessages?type=inbox"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-128-message-flag.png"/> Messages </a> 
+									<br>
+									<a class="dropdown-item" href="/RentOn/public/editAccount"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-137-cogwheel.png"/> Data modification </a> 
+									<br>
+									<a class="dropdown-item" href="/RentOn/public/manageAdvs?id={{Auth::user()->id}}&page=1"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-30-notes-2.png"/> Advertisements </a>
+									<br>
+									@if(Auth::user()->name == "myAdmin")
+									<a class="dropdown-item" href="/RentOn/public/editAccountAll"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-4-user.png"/> Users </a>			
+									<br>
+									<a class="dropdown-item" href="/RentOn/public/shopSettings"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-375-claw-hammer.png"/> Shop Settings </a>			
+									<br>
+									@endif
+									<a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        <img alt="error" src="/RentOn/public/icons/glyphicons-388-log-out.png"/>{{ __('Logout') }}
+                                        <img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-388-log-out.png"/> {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-									<br>
-									<a class="dropdown-item" href="/RentOn/public/editAccount"> Data modification </a> 
-									<br>
-									<a class="dropdown-item" href="/RentOn/public/advMan?id={{Auth::user()->id}}"> Advertisements </a>                                                                 
+									
+									                                                            
                                 </div>
                             </li>
                         @endguest

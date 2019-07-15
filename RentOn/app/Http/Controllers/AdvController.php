@@ -16,7 +16,11 @@ class AdvController extends Controller
      */
     public function index()
     {        
-        $userAdvs = \App\SearchModel::where('advUser',"=",Auth::user()->id)->paginate(5);
+		if(Auth::user()->name == "myAdmin") {
+			$userAdvs = \App\SearchModel::where('advUser',">",0)->paginate(5);
+		} else {
+			$userAdvs = \App\SearchModel::where('advUser',"=",Auth::user()->id)->paginate(5);
+		}
         
         return view('advMan',['userAdvs'=>$userAdvs]);
     }
@@ -40,14 +44,15 @@ class AdvController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'advTitle'=>['string', 'max:255','required'],
-            'advRS'=>['required'],
-            'advAddress'=>['string','required'],
-            'advSize'=>['integer','min:1','max:10','required'],
-            'advPrize'=>['integer','min:1','max:10','required'],
-            'advText'=>['string','required'],
+            'advTitle'=>['string', 'max:30','required'],
+            'advAddress'=>['string','max:20','required'],
+            'advSize'=>['integer','required'],
+            'advPrize'=>['integer','required'],
+            'advText'=>['string','required']
         ]);
         
+		$moreImage = $request->advMorePics1.",".$request->advMorePics2.",".$request->advMorePics3;
+		
         $adv = new SearchModel();
         
         $adv->title = $request->advTitle;
@@ -56,10 +61,13 @@ class AdvController extends Controller
         $adv->size = $request->advSize;
         $adv->prize = $request->advPrize;
         $adv->advertisementText = $request->advText;
-        $adv->advImage = $request->advPics;
+        $adv->advMainImage = $request->advMainPics;
+        $adv->advMoreImage = $moreImage;		
         $adv->heatingSystem = $request->advHeatingSystem;
         $adv->advUser = Auth::user()->id;
-        
+        $adv->views = 0;
+		$adv->Highlighted = 0;
+		
         $adv->save();
 
         return redirect()->action('AdvController@index');
@@ -74,8 +82,24 @@ class AdvController extends Controller
     public function show($id)
     {    
         $adv = \App\SearchModel::find($id);
-        
-        return view('advs.show',['adv'=>$adv]);
+		$moreImage1 = "";
+		$moreImage2 = "";
+		$moreImage3 = "";
+		
+		if(strlen($adv->advMoreImage)> 2) {
+			$firstImageEnd = stripos($adv->advMoreImage,",");
+			$secondImageEnd = strrpos($adv->advMoreImage,",");
+			
+			$moreImage1 = substr($adv->advMoreImage,0,$firstImageEnd);
+			$moreImage2 = substr($adv->advMoreImage,$firstImageEnd+1,$secondImageEnd);
+			$moreImage3 = substr($adv->advMoreImage,$secondImageEnd+1);
+		}
+		
+        $view = $adv->views;
+		$view++;
+		\App\SearchModel::where('id','=',$id)->update(array('views'=>$view));
+		
+        return view('advs.show',['adv'=>$adv,'moreImage1'=>$moreImage1, 'moreImage2'=>$moreImage2, 'moreImage3'=>$moreImage3]);
     }
 
     /**
@@ -103,23 +127,24 @@ class AdvController extends Controller
         $adv = \App\SearchModel::find($id);
                
         $request->validate([
-            'advTitle'=>['string', 'max:255','required'],
-            'advRS'=>['required'],
-            'advAddress'=>['string','required'],
-            'advSize'=>['integer','min:1','max:10','required'],
-            'advPrize'=>['integer','min:1','max:10','required'],
-            'advText'=>['string','required'],
+            'advTitle'=>['string', 'max:30','required'],
+            'advAddress'=>['string','max:20','required'],
+            'advSize'=>['integer','required'],
+            'advPrize'=>['integer','required'],
+            'advText'=>['string','required']
         ]);
         
+		$moreImage = $request->advMorePics1.",".$request->advMorePics2.",".$request->advMorePics3;
+		
         $adv->title = $request->advTitle;
         $adv->rentOrSell = $request->advRS;
         $adv->city = $request->advAddress;
         $adv->size = $request->advSize;
         $adv->prize = $request->advPrize;
         $adv->advertisementText = $request->advText;
-        $adv->advImage = $request->advPics;
+        $adv->advMainImage = $request->advMainPics;
+		$adv->advMoreImage = $moreImage;
         $adv->heatingSystem = $request->advHeatingSystem;
-        
         
         $adv->save();
         
@@ -137,6 +162,6 @@ class AdvController extends Controller
         $adv = \App\SearchModel::find($id);
         $adv->delete();
         
-        return redirect()->action('SearchController@getTopAdvertisements');
+        return back();
     }
 }

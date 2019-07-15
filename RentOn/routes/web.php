@@ -13,24 +13,41 @@
 
 Route::get('/','SearchController@getTopAdvertisements');
 Route::get('/search', 'SearchController@showSearchResult');
-Route::get('/show/{id}', 'AdvController@show');
 
-Route::get('/create', 'AdvController@create');
+Route::get('/showAdv/{id}', 'AdvController@show');
+
+Route::get('/createAdv', 'AdvController@create');
 Route::post('/create', 'AdvController@store');
 
-Route::get('/edit/{id}', 'AdvController@edit');
-Route::post('/edit/{id}', 'AdvController@update');
+Route::get('/editAdv/{id}', 'AdvController@edit');
+Route::post('/editAdv/{id}', 'AdvController@update');
 
+Route::get('/deleteAdv/{id}', 'AdvController@destroy');
+
+Route::get('/editAccountAll', 'auth\EditAccountController@index');
 Route::get('/editAccount', 'auth\EditAccountController@edit');
+Route::get('/editAccount/{id}', 'auth\EditAccountController@adminEdit');
 Route::post('/editAccount', 'auth\EditAccountController@update');
 Route::get('/deleteAccount', 'auth\EditAccountController@destroy');
+Route::get('/deleteAccount/{id}', 'auth\EditAccountController@adminDestroy');
 
-Route::get('/delete/{id}', 'AdvController@destroy');
 
-Route::get('/contact', function () {return view('contact');});
+Route::get('/shopSettings', 'AdminController@edit');
+Route::post('/shopSettings', 'AdminController@update');
+
+Route::get('/contact', 'AdminController@showContacts');
 
 Auth::routes();
 
 Route::get('/home', 'SearchController@getTopAdvertisements');
 
-Route::get('/advMan', 'AdvController@index');
+Route::get('/manageAdvs', 'AdvController@index');
+
+Route::get('/manageMessages', 'MessageController@index');
+
+Route::get('/showMessage/{id}', 'MessageController@show');
+
+Route::get('/createMessage/{id}', 'MessageController@create');
+Route::post('createMessage', 'MessageController@store');
+
+Route::get('/deleteMessage/{id}', 'MessageController@destroy');

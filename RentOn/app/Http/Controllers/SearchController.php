@@ -42,7 +42,7 @@ class SearchController extends Controller
 		
 		$advsAll = \App\SearchModel::where($this->whereArray);
 		$all = $advsAll->count();
-		$advs=$advsAll->orderBy($order,'desc')->paginate($pl);
+		$advs=$advsAll->orderBy('Highlighted','desc')->orderBy($order,'desc')->paginate($pl);
 		
 		$currentFindsMax = $this->getCurrentMaxPage($all, $pl, $currentPage);
 		
@@ -55,7 +55,7 @@ class SearchController extends Controller
      * @return void
      */
 	function setWhereArray() {		
-		if(isset($_GET['searchSubmit'])) {
+		if(isset($_GET['searchSubmit']) || empty(session()->get('warray'))) {
 			$this->addToWhereArray('searchLoc','city','like');
 			$this->addToWhereArray('searchSizeMin','size','>');
 			$this->addToWhereArray('searchSizeMax','size','<');
@@ -92,7 +92,7 @@ class SearchController extends Controller
      * @return \Illuminate\Http\Response
      */
 	function getTopAdvertisements() {				
-	$advs = \App\SearchModel::all()->take(4);
+	$advs = \App\SearchModel::where('views','>',0)->orderBy("views",'desc')->limit(10)->get();
 			
 		return view('home',['advs'=>$advs]);
 	}

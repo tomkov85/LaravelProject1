@@ -6,10 +6,11 @@
 	<h4 id= "topSells">Top sells</h4>
 	@foreach($advs as $adv)
 		<span class="topAdvs">
-			<a href='show/{{$adv->id}}'><div><img alt="no pics" src="apartmentspics\{{$adv->advImage}}" width="100px"/></div>
+			<a href='showAdv/{{$adv->id}}'><div><img alt="no pics" src="apartmentspics\{{$adv->advMainImage}}" width="100px"/></div>
 			{{$adv->title}}</a>
 		</span>
 	@endforeach
+	
  @endsection
 
  

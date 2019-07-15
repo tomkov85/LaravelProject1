@@ -37,7 +37,7 @@
 					<option value="5" @if($pageLimit==='5') {{"selected"}} @endif>5</option>
 			</select>
 		</div>
-		<div class="form-group col-sm-5 tableSetts">
+		<div class="form-group col-sm-4 tableSetts">
 			<div class='alert alert-success'> find {{$finds}}
 			@if($cfm !== 0)
 				, current:{{$cf.'-'.$cfm}}
@@ -49,12 +49,12 @@
 <br>
 <br>
 @foreach($in as $i)
-	<table class="table table-striped myTable">
+	<table class="table table-striped table-bordered myTable">
 	<caption>{{$i->title}}</caption>
 		<thead>
 		</thead>
 		<tbody>
-			<tr><td rowspan="5"><img alt="no pics" src="apartmentspics\{{$i->advImage}}" width="200px"></td><td>type: {{$i->rentOrSell}}</td></tr>
+			<tr><td rowspan="5"><img alt="no pics" src="apartmentspics\{{$i->advMainImage}}" width="200px"></td><td>type: @if($i->rentOrSell){{"rent"}}@else{{"sell"}}@endif</td></tr>
 			<tr><td>place: {{$i->city}}</td></tr>
 			<tr><td>size: {{$i->size}}</td></tr>
 			<tr><td>prize: {{$i->prize}}</td></tr>
