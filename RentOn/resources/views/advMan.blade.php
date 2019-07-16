@@ -6,16 +6,16 @@
 
 
 @foreach($userAdvs as $userAdv)
-	<table class="table table-striped table-border myTable">
+	<table class="table table-striped table-bordered myTable">
 	<caption><a href='showAdv/{{$userAdv->id}}'>{{$userAdv->title}}</a></caption>
 		<tbody>
 			<tr><td rowspan="5"><img alt="no pics" src="apartmentspics\{{$userAdv->advMainImage}}" width="200px"></td>
-				<td>type: @if($userAdv->rentOrSell === "1") rent @else sell @endif</td> @if($userAdv->Highlighted > 0) <td>Highlighted: {{ $userAdv->Highlighted }}</td>@endif </tr>
+				<td>type: @if($userAdv->rentOrSell === "1") rent @else sell @endif</td></tr>
 			<tr><td>place: {{$userAdv->city}}</td></tr>
 			<tr><td>size: {{$userAdv->size}}</td></tr>
 			<tr><td>prize: {{$userAdv->prize}}</td></tr>
 			<tr><td>views: {{$userAdv->views}}</td></tr>
-			<tr>@if($userAdv->Highlighted === 0) <td><a class="btn btn-info" href=''>highlight</a></td> @endif <td><a class="btn btn-info" href='editAdv/{{$userAdv->id}}'>update</a></td><td><a class="btn btn-danger" href='deleteAdv/{{$userAdv->id}}'>delete</a></td></tr>			
+			<tr><td> @if($userAdv->Highlighted === 0) <a class="btn btn-info" href=''>highlight</a> @else Highlighted: {{ $userAdv->Highlighted }} @endif </td><td><a class="btn btn-info" href='editAdv/{{$userAdv->id}}'>update</a> <a class="btn btn-danger" href='deleteAdv/{{$userAdv->id}}'>delete</a></td></tr>			
 		</tbody>	
 	</table>
 

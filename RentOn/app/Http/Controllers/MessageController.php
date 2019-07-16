@@ -23,9 +23,9 @@ class MessageController extends Controller
 		}
 		
 		if(Auth::user()->name == "myAdmin") {
-			$messages = \App\MessagesModel::all();
+			$messages = \App\MessagesModel::orderBy('created_at','desc')->paginate(10);
 		} else {
-			$messages = \App\MessagesModel::all()->where($type, Auth::user()->email);
+			$messages = \App\MessagesModel::all()->where($type, Auth::user()->email)->paginate(10);
 		}
 		
 

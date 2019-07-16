@@ -10,7 +10,7 @@ use App\SearchModel;
 class SearchController extends Controller
 {
 	private $whereArray = array();
-	private $linkArray = array();
+	private $linkArray = '';
 	
 	/**
      * Show the result of the advertisements search

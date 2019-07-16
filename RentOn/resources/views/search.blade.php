@@ -58,7 +58,7 @@
 			<tr><td>place: {{$i->city}}</td></tr>
 			<tr><td>size: {{$i->size}}</td></tr>
 			<tr><td>prize: {{$i->prize}}</td></tr>
-			<tr><td><a href='show/{{$i->id}}'>more</a></td></tr>			
+			<tr><td><a href='showAdv/{{$i->id}}'>more</a></td></tr>			
 		</tbody>	
 	</table>
 
@@ -66,7 +66,5 @@
 
 </div>
 <div>
-<center>{{$in->appends($linkArray)->onEachSide(5)->links()}}</center>
+{{$in->appends(10)->onEachSide(5)->links()}}
 @endsection
-
-<!--["searchLoc" => $_GET['searchLoc'],"rentOrSell" => $_GET['rentOrSell'],"searchSizeMin" => $_GET['searchSizeMax'],"searchSizeMax" => $_GET['searchSizeMin'],-->
