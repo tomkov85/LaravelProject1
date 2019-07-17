@@ -51,3 +51,4 @@ Route::get('/createMessage/{id}', 'MessageController@create');
 Route::post('createMessage', 'MessageController@store');
 
 Route::get('/deleteMessage/{id}', 'MessageController@destroy');
+Route::get('/replaceMessage/{id}', 'MessageController@replace');

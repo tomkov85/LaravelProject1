@@ -115,9 +115,11 @@ class AdminController extends Controller
 		if (!$request->hasFile('logo')) {
 			return back();
 		}else{
-			$path = $request->file('logo')->store('samples/temp');
-		}
-		*/
+			
+		}*/
+		echo ($request->logo);
+		
+		$path = $request->file('logo')->storeAs('myLogo','RentOnlogo.jpg');
 		return redirect()->action('SearchController@getTopAdvertisements');
     }
 

@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-	<img class="contact-logo" alt="error" src="/RentOn/public/RentOnlogo.jpg"/>
+	<img class="contact-logo" alt="error" src="\RentOn\storage\app\myLogo\RentOnlogo.jpg"/>
 	<h4>Email: {{$email}}</h4>
 	<h4>Phone: {{$phone}}</h4>
 	<h4>Address: {{$address}}</h4>

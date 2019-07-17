@@ -14,7 +14,7 @@
 	<body>
 		<nav class = "navbar">
 			<div class = "navbar-header">
-				<a class="navbar-brand" href = "/RentOn/public/"><img class="logo" alt="error" src="/RentOn/public/RentOnlogo.jpg"/></a>
+				<a class="navbar-brand" href = "/RentOn/public/"><img class="logo" alt="error" src="\RentOn\storage\app\myLogo\RentOnlogo.jpg"/></a>
 			</div>
 			<ul class = "navbar-nav navUl">			
 				<li class='nav-item navLi'><a href = "/RentOn/public/search?searchLoc=&order=&prize=&searchSizeMin=">buy/rent</a></li>

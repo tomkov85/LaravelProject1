@@ -15,17 +15,19 @@ class MessageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-		
+    {		
 		$type = 'receiver';
+		$bin = 0;
 		if($_GET['type'] == 'outbox') {
 			$type = 'sender';
+		} elseif($_GET['type'] == 'bin') {
+				$bin = 1;
 		}
 		
 		if(Auth::user()->name == "myAdmin") {
 			$messages = \App\MessagesModel::orderBy('created_at','desc')->paginate(10);
 		} else {
-			$messages = \App\MessagesModel::all()->where($type, Auth::user()->email)->paginate(10);
+			$messages = \App\MessagesModel::where($type, Auth::user()->email)->where('bin',$bin)->paginate(10);
 		}
 		
 
@@ -50,6 +52,8 @@ class MessageController extends Controller
 			$advTitle = $adv->title;
 			$userEmail = \App\User::find($advUser)->email;
 		}
+		
+		
 		
 		if($id > 0) {
 			$mod = true;			
@@ -112,9 +116,13 @@ class MessageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function replace($id)
     {
-        //
+			$message = \App\MessagesModel::find($id);
+			$message->bin = 0;
+			$message->save();
+		
+		return back();
     }
 
     /**
@@ -138,7 +146,12 @@ class MessageController extends Controller
     public function destroy($id)
     {
         $message = \App\MessagesModel::find($id);
-		$message->delete();
+		if($message->bin == 0){
+			$message->bin = 1;
+			$message->save();
+		} else {
+			$message->delete();
+		}				
 		
 		return back();
     }

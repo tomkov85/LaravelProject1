@@ -10,7 +10,7 @@
 	<caption><a href='showAdv/{{$userAdv->id}}'>{{$userAdv->title}}</a></caption>
 		<tbody>
 			<tr><td rowspan="5"><img alt="no pics" src="apartmentspics\{{$userAdv->advMainImage}}" width="200px"></td>
-				<td>type: @if($userAdv->rentOrSell === "1") rent @else sell @endif</td></tr>
+				<td>type: @if($userAdv->rentOrSell === 1) rent @else sell @endif</td></tr>
 			<tr><td>place: {{$userAdv->city}}</td></tr>
 			<tr><td>size: {{$userAdv->size}}</td></tr>
 			<tr><td>prize: {{$userAdv->prize}}</td></tr>
@@ -20,7 +20,7 @@
 	</table>
 
 @endforeach
-	@if(count($userAdvs) >= 5 || $_GET['page'] > 1)
+	@if(count($userAdvs) >= 5)
 		{{$userAdvs->appends(['page'=>$_GET['page']])->onEachSide(5)->links()}}
 	@endif
 @endsection
