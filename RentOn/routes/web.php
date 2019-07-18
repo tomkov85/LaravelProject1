@@ -37,7 +37,7 @@ Route::post('/shopSettings', 'AdminController@update');
 
 Route::get('/contact', 'AdminController@showContacts');
 
-Auth::routes();
+Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'SearchController@getTopAdvertisements');
 

@@ -35,9 +35,9 @@ class MessageReceivedMail extends Mailable
      */
     public function build()
     {
-        return $this->from(renton@renton.com)
-					->subject("RentOn message from: ".$sender)
-					->view('messages.show', ['sender' => $this->sender, 'reciever' => $this->reciever, 'messageTitle' => $this->messageTitle, 'messageText' => $this->messageText, 'messageId' = 0]);
+        return $this->from('renton@renton.com')
+					->subject("RentOn message from: ".$this->sender)
+					->view('messages.show', ['sender' => $this->sender, 'reciever' => $this->reciever, 'messageTitle' => $this->messageTitle, 'messageText' => $this->messageText, 'messageId' => 0]);
 		;
     }
 }

@@ -6,6 +6,8 @@ use App\MessagesModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MessageReceivedMail;
 
 class MessageController extends Controller
 {
@@ -89,8 +91,9 @@ class MessageController extends Controller
 		
         $message->save();
 
-		Mail::to((Auth::user()->email)->send(new MessageReceivedMail($message->sender, $message->receiver, $message->messageTitle, $message->messageText)));
-        return redirect()->action('SearchController@getTopAdvertisements');
+		Mail::to('tamas.kovacshazy@gmail.com')->send(new MessageReceivedMail($message->sender, $message->receiver, $message->messageTitle, $message->messageText));
+		//Mail::to($request->email)->send(new OrderShipped($request->name, session()->get('userOrderList')));
+	   return redirect()->action('SearchController@getTopAdvertisements');
     }
 
     /**

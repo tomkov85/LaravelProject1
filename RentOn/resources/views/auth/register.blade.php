@@ -58,11 +58,11 @@
 						<div class="form-group row">
                             <label for="professional" class="col-md-4 col-form-label text-md-right">Professional: </label>
 
-                            <div class="col-md-10">
+                            <div class="col-md-10 regProfFields">
 								<label for="professional" class="col-md-3 col-form-label text-md-right">True: </label>
-                                <input id="professional1" type="radio" class="form-control col-sm-3" name="professional" value="1">
+                                <input id="professional1" type="radio" class="form-control col-sm-3 regProfField" name="professional" value="1">
 								<label for="professional" class="col-md-3 col-form-label text-md-right">False: </label>
-								<input id="professional2" type="radio" class="form-control col-sm-3" name="professional" value="0">
+								<input id="professional2" type="radio" class="form-control col-sm-3 regProfField" name="professional" value="0">
                             </div>
                         </div>
 						

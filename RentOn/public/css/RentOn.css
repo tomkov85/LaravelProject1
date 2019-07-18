@@ -191,3 +191,12 @@ form>div{
 .pagination {
 	margin-left:40%;
 }
+
+.regProfFields {
+	width:64%;
+}
+
+.regProfField{
+	width:15px;
+	height:15px;
+}
