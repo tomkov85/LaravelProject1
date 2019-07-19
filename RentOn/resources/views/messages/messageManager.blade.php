@@ -2,14 +2,14 @@
 
 @section('content')
 
-	
+	@if($type != "all")
 	<ul class='messageManagerMenu'>
 		<li><a class="btn btn-success mySuccessBtn" href='/RentOn/public/createMessage/0'>new message</a></li>
 		<li><a href="/RentOn/public/manageMessages?type=inbox"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-123-message-in.png"/> inbox</a></li>
 		<li><a href="/RentOn/public/manageMessages?type=outbox"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-124-message-out.png"/> outbox</a></li>
 		<li><a href="/RentOn/public/manageMessages?type=bin"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-17-bin.png"/> trash</a></li>
 	</ul>
-	
+	@endif
 	<table class="table table-bordered messageManagerTable">
 		<caption>Messages</caption>
 		<thead>
@@ -22,6 +22,6 @@
 		</tbody>	
 	</table>
 	
-{{$messages->appends(10)->onEachSide(5)->links()}}
+{{$messages->appends(request()->except('page'))->onEachSide(5)->links()}}
 
 @endsection

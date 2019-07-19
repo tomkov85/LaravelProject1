@@ -24,16 +24,13 @@ class MessageController extends Controller
 			$type = 'sender';
 		} elseif($_GET['type'] == 'bin') {
 				$bin = 1;
+		} elseif($_GET['type'] == 'all') {
+			$type = 'all';
 		}
+				
+		$messages = \App\MessagesModel::where($type, Auth::user()->email)->where('bin',$bin)->paginate(10);
 		
-		if(Auth::user()->name == "myAdmin") {
-			$messages = \App\MessagesModel::orderBy('created_at','desc')->paginate(10);
-		} else {
-			$messages = \App\MessagesModel::where($type, Auth::user()->email)->where('bin',$bin)->paginate(10);
-		}
-		
-
-        return view('messages.messageManager', ['messages' => $messages]);
+        return view('messages.messageManager', ['messages' => $messages, 'type' => $type]);
     }
 
     /**

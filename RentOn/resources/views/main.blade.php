@@ -47,12 +47,14 @@
 									<br>
 									<a class="dropdown-item" href="/RentOn/public/editAccount"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-137-cogwheel.png"/> Data modification </a> 
 									<br>
-									<a class="dropdown-item" href="/RentOn/public/manageAdvs?id={{Auth::user()->id}}&page=1"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-30-notes-2.png"/> Advertisements </a>
+									<a class="dropdown-item" href="/RentOn/public/getAllAdvs?page=1"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-30-notes-2.png"/> Advertisements </a>
 									<br>
 									@if(Auth::user()->name == "myAdmin")
 									<a class="dropdown-item" href="/RentOn/public/editAccountAll"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-4-user.png"/> Users </a>			
 									<br>
 									<a class="dropdown-item" href="/RentOn/public/shopSettings"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-375-claw-hammer.png"/> Shop Settings </a>			
+									<br>
+									<a class="dropdown-item" href="/RentOn/public/manageAllMessages?type=all"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-128-message-flag.png"/> All Messages </a> 
 									<br>
 									@endif
 									<a class="dropdown-item" href="{{ route('logout') }}"
@@ -70,19 +72,6 @@
                         @endguest
                     </ul>
 				</div>
-			<!--
-			@if(!Auth::check())
-			<ul class="navbar-nav navbar-right navUl">
-					<li class='nav-item navLi' ><a href="/RentOn/public/register"><span><img alt="error" src="icons/glyphicons-400-registration-mark.png"/></span>Sign Up</a></li>
-					<li class='nav-item navLi'><a href="/RentOn/public/login"><span><img alt="error" src="icons/glyphicons-387-log-in.png"/></span>Login</a></li>
-			</ul>
-			@endif
-			@if(Auth::check())
-			<ul class="navbar-nav navbar-right navUl">
-					<li class='nav-item navLi' ><a href="/RentOn/public/regist"><span><img alt="error" src="icons/glyphicons-400-registration-mark.png"/></span>{{Auth::user()->name}}</a></li>
-					<li class='nav-item navLi'><a href="/RentOn/public/login"><span><img alt="error" src="icons/glyphicons-387-log-in.png"/></span>Logout</a></li>
-			</ul>
-			@endif-->
 		</nav>
 		<div id="page-container">
 		@yield('content')

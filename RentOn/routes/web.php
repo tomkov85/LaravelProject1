@@ -24,13 +24,16 @@ Route::post('/editAdv/{id}', 'AdvController@update');
 
 Route::get('/deleteAdv/{id}', 'AdvController@destroy');
 
-Route::get('/editAccountAll', 'auth\EditAccountController@index');
+//Admin routes
+
+Route::get('/editAccountAll', 'AdminController@getAllUsers');
 Route::get('/editAccount', 'auth\EditAccountController@edit');
 Route::get('/editAccount/{id}', 'auth\EditAccountController@adminEdit');
 Route::post('/editAccount', 'auth\EditAccountController@update');
 Route::get('/deleteAccount', 'auth\EditAccountController@destroy');
 Route::get('/deleteAccount/{id}', 'auth\EditAccountController@adminDestroy');
-
+Route::get('/manageAllMessages', 'AdminController@getAllMessages');
+Route::get('/getAllAdvs', 'AdminController@getAllAdvs');
 
 Route::get('/shopSettings', 'AdminController@edit');
 Route::post('/shopSettings', 'AdminController@update');

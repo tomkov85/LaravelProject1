@@ -14,6 +14,6 @@
 		</tbody>	
 	</table>
 	
-
+	{{$users->appends(request()->except('page'))->onEachSide(5)->links()}}
 
 @endsection

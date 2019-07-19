@@ -66,5 +66,5 @@
 
 </div>
 <div>
-{{$in->appends(10)->onEachSide(5)->links()}}
+{{$in->appends(request()->except('page'))->onEachSide(5)->links()}}
 @endsection

@@ -25,15 +25,44 @@ class AdminController extends Controller
         return view('contact',['email'=>$email->settingValue,'phone'=>$phone->settingValue,'address'=>$address->settingValue]);
     }
 	
-    /**
-     * Display a listing of the resource.
+	/**
+     * Display a listing of the users.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getAllUsers()
     {
-        //
+		
+		$users = \App\User::paginate(10);
+
+        return view('auth.editAccountAll',['users'=>$users]);
     }
+	
+	/**
+     * Display a listing of the messgaes.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllMessages()
+    {
+		
+		$messages = \App\MessagesModel::orderBy('created_at','desc')->paginate(10);
+
+        return view('messages.messageManager', ['messages' => $messages, 'type' => $_GET['type']]);
+    }
+	
+    /**
+     * Display a listing of the messgaes.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllAdvs()
+    {
+		$userAdvs = \App\SearchModel::where('advUser',">",0)->paginate(5);
+        
+        return view('advMan',['userAdvs'=>$userAdvs]);
+    }
+	
 
     /**
      * Show the form for creating a new resource.
