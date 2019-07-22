@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\PageSettingsModel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Auth\Authenticatable;
+use App\User;
 
 class AdminController extends Controller
 {
+	public function __construct()
+    {
+        $this->middleware('auth');
+    }
 	
 	/**
      * Display the specified resource.
@@ -45,10 +52,26 @@ class AdminController extends Controller
      */
     public function getAllMessages()
     {
+		$type = 'all';
 		
-		$messages = \App\MessagesModel::orderBy('created_at','desc')->paginate(10);
+		if(!empty($_GET['type'])) {
+			$type = $_GET['type'];
+		}
+		if(!empty($_GET['searchVal'])) {
+			$searchVal = $_GET['searchVal'];
+			$searchName = $_GET['searchName'];
+			
+			$messages = \App\MessagesModel::where($searchName,'like','%'.$searchVal.'%')->orderBy('created_at','desc');
+		} else {
+			$messages = \App\MessagesModel::orderBy('created_at','desc');
+		}	
+		/*
+		$col = Schema::getColumnListing('users');
+		echo $col[2];
+		*/
+		$messages = $messages->paginate(10);
 
-        return view('messages.messageManager', ['messages' => $messages, 'type' => $_GET['type']]);
+        return view('messages.messageManager', ['messages' => $messages, 'type' => $type]);
     }
 	
     /**

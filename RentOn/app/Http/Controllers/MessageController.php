@@ -27,7 +27,7 @@ class MessageController extends Controller
 		} elseif($_GET['type'] == 'all') {
 			$type = 'all';
 		}
-				
+		
 		$messages = \App\MessagesModel::where($type, Auth::user()->email)->where('bin',$bin)->paginate(10);
 		
         return view('messages.messageManager', ['messages' => $messages, 'type' => $type]);

@@ -65,6 +65,7 @@
 @endforeach
 
 </div>
-<div>
+<div class='paginationContainer'>
 {{$in->appends(request()->except('page'))->onEachSide(5)->links()}}
+</div>
 @endsection

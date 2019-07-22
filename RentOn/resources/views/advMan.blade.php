@@ -20,8 +20,10 @@
 	</table>
 
 @endforeach
+<div class='paginationContainer'>
 	@if(count($userAdvs) >= 5)
 		{{$userAdvs->appends(['page'=>$_GET['page']])->onEachSide(5)->links()}}
 	@endif
+</div>
 @endsection
 

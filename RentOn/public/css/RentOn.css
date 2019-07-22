@@ -54,7 +54,7 @@ nav {
 
 #page-container {
     position: relative;
-    min-height: 80vh;
+    min-height: 86vh;
     padding-left: 5px;
 }
 
@@ -188,8 +188,11 @@ form>div{
 	width:20px;
 }
 
-.pagination {
-	margin-left:40%;
+.paginationContainer {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    padding: 10px;
 }
 
 .regProfFields {
