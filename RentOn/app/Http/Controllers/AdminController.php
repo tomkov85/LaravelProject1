@@ -39,8 +39,19 @@ class AdminController extends Controller
      */
     public function getAllUsers()
     {
-		
-		$users = \App\User::paginate(10);
+		if(!empty($_GET['searchVal'])) {
+			$searchVal = $_GET['searchVal'];
+			$searchName = $_GET['searchName'];
+			
+			$users = \App\User::where($searchName,'like','%'.$searchVal.'%')->orderBy('created_at','desc');
+		} else {
+			$users = \App\User::orderBy('created_at','desc');
+		}	
+		/*
+		$col = Schema::getColumnListing('users');
+		echo $col[2];
+		*/
+		$users = $users->paginate(10);
 
         return view('auth.editAccountAll',['users'=>$users]);
     }
@@ -81,7 +92,19 @@ class AdminController extends Controller
      */
     public function getAllAdvs()
     {
-		$userAdvs = \App\SearchModel::where('advUser',">",0)->paginate(5);
+		if(!empty($_GET['searchVal'])) {
+			$searchVal = $_GET['searchVal'];
+			$searchName = $_GET['searchName'];
+			
+			$userAdvs = \App\SearchModel::where($searchName,'like','%'.$searchVal.'%')->orderBy('created_at','desc');
+		} else {
+			$userAdvs = \App\SearchModel::orderBy('created_at','desc');
+		}	
+		/*
+		$col = Schema::getColumnListing('users');
+		echo $col[2];
+		*/
+		$userAdvs = $userAdvs->paginate(10);
         
         return view('advMan',['userAdvs'=>$userAdvs]);
     }

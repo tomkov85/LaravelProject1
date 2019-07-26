@@ -50,13 +50,13 @@ class MessageController extends Controller
 			$advUser = $adv->advUser;
 			$advTitle = $adv->title;
 			$userEmail = \App\User::find($advUser)->email;
-		}
-		
-		
+		}		
 		
 		if($id > 0) {
 			$mod = true;			
-		} else {
+		} 
+		
+		if(Auth::check()) {
 			$user = Auth::user()->email;
 		}
 		
@@ -107,7 +107,7 @@ class MessageController extends Controller
 			$message->save();
 		}
 		
-        return view('messages.show', ['sender' => $message->sender, 'receiver' => $message->reciever, 'messageTitle' => $message->messageTitle, 'messageText' => $message->messageText, 'messageId' => $message->id]);
+        return view('messages.show', ['sender' => $message->sender, 'receiver' => $message->receiver, 'messageTitle' => $message->messageTitle, 'messageText' => $message->messageText, 'messageId' => $message->id]);
     }
 
     /**

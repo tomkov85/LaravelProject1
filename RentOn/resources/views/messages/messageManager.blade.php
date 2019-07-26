@@ -13,7 +13,7 @@
 	@else
 		<form class="form-horizontal" method="get" action="">
 			<div class="form-group">
-				<div id="searchFieldName" class="col-sm-4">
+				<div id="searchField" class="col-sm-4">
 					<select class="form-control" name="searchName">
 						<option>sender</option>
 						<option>reciever</option>
