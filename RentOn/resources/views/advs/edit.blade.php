@@ -2,6 +2,7 @@
 
 @section('content')	
 
+ <!-- Upgrade form -->
 <form method="post" action="">
 	@csrf
 	<table class="table table-striped table-bordered myTable">

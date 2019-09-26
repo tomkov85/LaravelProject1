@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')
-
+	 <!-- Datatable -->
 	<table class="table table-striped table-bordered myTable">
 		<thead>
 		</thead>

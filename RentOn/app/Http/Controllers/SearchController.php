@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\SearchModel;
+use App\PageSettingsModel;
 
 class SearchController extends Controller
 {
@@ -27,7 +28,7 @@ class SearchController extends Controller
 		}
 		
 		if(empty($_GET['pageLimit'])) {
-			$pl = 2;
+			$pl = 5;
 		} else {
 			$pl = $_GET['pageLimit'];
 		}
@@ -121,4 +122,18 @@ class SearchController extends Controller
 			}
 		}
 	 }
+	 
+	 /**
+     * Shows contact datas of the Company.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showContacts()
+    {
+        $email = \App\PageSettingsModel::where('settingName','email')->first();
+		$address = \App\PageSettingsModel::where('settingName','address')->first();
+		$phone = \App\PageSettingsModel::where('settingName','phone')->first();
+		
+        return view('contact',['email'=>$email->settingValue,'phone'=>$phone->settingValue,'address'=>$address->settingValue]);
+    }
 }

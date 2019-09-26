@@ -11,6 +11,8 @@
 |
 */
 
+//Base routes
+
 Route::get('/','SearchController@getTopAdvertisements');
 Route::get('/search', 'SearchController@showSearchResult');
 
@@ -18,6 +20,12 @@ Route::get('/showAdv/{id}', 'AdvController@show');
 
 Route::get('/createAdv', 'AdvController@create');
 Route::post('/create', 'AdvController@store');
+Route::get('/home', 'SearchController@getTopAdvertisements');
+
+Route::get('/contact', 'SearchController@showContacts');
+
+// Advertisement manager routes
+Route::get('/manageAdvs', 'AdvController@index');
 
 Route::get('/editAdv/{id}', 'AdvController@edit');
 Route::post('/editAdv/{id}', 'AdvController@update');
@@ -38,13 +46,11 @@ Route::get('/getAllAdvs', 'AdminController@getAllAdvs');
 Route::get('/shopSettings', 'AdminController@edit');
 Route::post('/shopSettings', 'AdminController@update');
 
-Route::get('/contact', 'AdminController@showContacts');
+
 
 Auth::routes(['verify'=>true]);
 
-Route::get('/home', 'SearchController@getTopAdvertisements');
-
-Route::get('/manageAdvs', 'AdvController@index');
+//Message system routes
 
 Route::get('/manageMessages', 'MessageController@index');
 

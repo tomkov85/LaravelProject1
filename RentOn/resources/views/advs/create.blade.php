@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('content')	
-
+ <!-- Create form -->
 <form method="POST" action="create">
 	<table class="table table-striped table-bordered myTable">
 	<caption><input type="text" name="advTitle" placeholder="Enter the title here"/></caption>

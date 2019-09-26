@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header renton-card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -59,12 +59,16 @@
                             <label for="professional" class="col-md-4 col-form-label text-md-right">Professional: </label>
 
                             <div class="col-md-10 regProfFields">
-								<label for="professional" class="col-md-3 col-form-label text-md-right">True: </label>
-                                <input id="professional1" type="radio" class="form-control col-sm-3 regProfField" name="professional" value="1">
-								<label for="professional" class="col-md-3 col-form-label text-md-right">False: </label>
-								<input id="professional2" type="radio" class="form-control col-sm-3 regProfField" name="professional" value="0">
+							<div class="form-group regProfFieldContainer">
+								<label for="professional" class="col-form-label text-md-right">True: </label>
+                                <input id="professional1" type="radio" class="regProfField" name="professional" value="1">
+							</div>
+							<div class="form-group regProfFieldContainer">
+								<label for="professional" class=" col-form-label text-md-right">False: </label>
+								<input id="professional2" type="radio" class="regProfField" name="professional" value="0">
                             </div>
-                        </div>
+							</div>
+						</div>
 						
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
@@ -101,4 +105,5 @@
         </div>
     </div>
 </div>
+<script> document.getElementsByTagName('a')[5].style.backgroundColor='#F09609';</script>
 @endsection

@@ -2,6 +2,7 @@
 
 @section('content')	
 
+ <!-- Create form -->
 <form method="POST" action="/RentOn/public/createMessage">
 	<table class="table table-striped table-bordered messageTable">
 	<thead>

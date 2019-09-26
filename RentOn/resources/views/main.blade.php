@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8" />
+        <meta author="Tom" />
+        <meta content="HTML,CSS,JS,PHP" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>RentOn</title>
@@ -12,31 +14,35 @@
         <script type="text/javascript" src="/RentOn/public/js/RentOn.js"></script>
 	</head>
 	<body>
-		<nav class = "navbar">
+		<!-- Navbar -->		
+		<nav class = "navbar renton-nav" style="">
+			
+			<!-- Left Side Of Navbar, Logo and navigation links -->
 			<div class = "navbar-header">
 				<a class="navbar-brand" href = "/RentOn/public/"><img class="logo" alt="error" src="\RentOn\storage\app\myLogo\RentOnlogo.jpg"/></a>
 			</div>
 			<ul class = "navbar-nav navUl">			
-				<li class='nav-item navLi'><a href = "/RentOn/public/search?searchLoc=&order=&prize=&searchSizeMin=">buy/rent</a></li>
+				<li class='nav-item navLi'><a href = "/RentOn/public/search?searchLoc=&order=&prize=&searchSizeMin=&order=size&pageLimit=5">buy/rent</a></li>
 				<li class='nav-item navLi'><a href = "/RentOn/public/login">sell</a></li>
 				<li class='nav-item navLi'><a href = "/RentOn/public/contact">contact us</a></li>
 			</ul>
-			
+			 <!-- Right Side Of Navbar 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			
-			 <!-- Right Side Of Navbar -->
+			-->
                     <ul class="navbar-nav ml-auto navbar-right navUl">
                         <!-- Authentication Links -->
                         @guest
                             <li class='nav-item navLi'>
-                                <a class="nav-link" href="{{ route('login') }}"><img alt="error" src="/RentOn/public/icons/glyphicons-387-log-in.png"/>{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}"><img alt="error" src="/RentOn/public/icons/glyphicons-387-log-in.png"/> {{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item navLi">
-                                    <a class="nav-link" href="{{ route('register') }}"><span><img alt="error" src="/RentOn/public/icons/glyphicons-400-registration-mark.png"/>{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}"><img alt="error" src="/RentOn/public/icons/glyphicons-400-registration-mark.png"/> {{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
+						<!-- User menu -->
                             <li class="nav-item dropdown navLi">
                                 <a id="collapse-btn1" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <img alt="error" src="/RentOn/public/icons/glyphicons-4-user.png"/> {{ Auth::user()->name }} <span class="caret"></span>
@@ -71,13 +77,15 @@
                             </li>
                         @endguest
                     </ul>
-				</div>
+				
 		</nav>
 		<div id="page-container">
 		@yield('content')
 		</div>
+		<!-- Footer -->
 		<footer>
-			<a> copyright Tom</a>
+			<a>Dataprotection Statement</a><br>
+			@copyright Tom
 		</footer>
 	</body>	
 </html>

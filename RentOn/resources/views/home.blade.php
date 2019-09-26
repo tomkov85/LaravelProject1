@@ -3,6 +3,7 @@
  @section('content')
 	<h2 id = "welcomeMessage">Welcome at RentOn, on your appartman advertising homepage</h2>
 	
+	 <!-- Datatable -->
 	<h4 id= "topSells">Top sells</h4>
 	@foreach($advs as $adv)
 		<span class="topAdvs">

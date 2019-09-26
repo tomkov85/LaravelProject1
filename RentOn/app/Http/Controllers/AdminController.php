@@ -17,20 +17,7 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 	
-	/**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function showContacts()
-    {
-        $email = \App\PageSettingsModel::where('settingName','email')->first();
-		$address = \App\PageSettingsModel::where('settingName','address')->first();
-		$phone = \App\PageSettingsModel::where('settingName','phone')->first();
-		
-        return view('contact',['email'=>$email->settingValue,'phone'=>$phone->settingValue,'address'=>$address->settingValue]);
-    }
+	
 	
 	/**
      * Display a listing of the users.
@@ -53,7 +40,7 @@ class AdminController extends Controller
 		*/
 		$users = $users->paginate(10);
 
-        return view('auth.editAccountAll',['users'=>$users]);
+        return view('admin.editAccountAll',['users'=>$users]);
     }
 	
 	/**
@@ -82,7 +69,7 @@ class AdminController extends Controller
 		*/
 		$messages = $messages->paginate(10);
 
-        return view('messages.messageManager', ['messages' => $messages, 'type' => $type]);
+        return view('admin.messageManager', ['messages' => $messages, 'type' => $type]);
     }
 	
     /**
@@ -106,7 +93,7 @@ class AdminController extends Controller
 		*/
 		$userAdvs = $userAdvs->paginate(10);
         
-        return view('advMan',['userAdvs'=>$userAdvs]);
+        return view('admin.advMan',['userAdvs'=>$userAdvs]);
     }
 	
 
@@ -154,7 +141,7 @@ class AdminController extends Controller
 		$address = \App\PageSettingsModel::where('settingName','address')->first();
 		$phone = \App\PageSettingsModel::where('settingName','phone')->first();
 		
-        return view('admin',['email'=>$email->settingValue,'phone'=>$phone->settingValue,'address'=>$address->settingValue]);
+        return view('admin.admin',['email'=>$email->settingValue,'phone'=>$phone->settingValue,'address'=>$address->settingValue]);
     }
 
     /**

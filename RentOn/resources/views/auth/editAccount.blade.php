@@ -1,14 +1,15 @@
 @extends('main')
 
 @section('content')
-
+<!-- Renton card -->
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Edit your Account') }}</div>
+                <div class="card-header renton-card-header">{{ __('Edit your Account') }}</div>
 
                 <div class="card-body">
+					 <!-- Upgrade form -->
                     <form method="POST" action="">
                         @csrf
 

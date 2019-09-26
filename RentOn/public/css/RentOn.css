@@ -1,14 +1,42 @@
 @charset "UTF-8";
 *{
 	font-weight:bold;
+	color:#F09609;
 }
 
-nav {
-	background-color:brown;
+a:hover{
+	text-decoration:none;
+	font-weight:bold;
+	text-shadow: 1px 1px 1px yellow;
+}
+
+.renton-nav {
+	background-color:#337ab7;
+	box-shadow:1px 1px 1px #F09609;
+	border-radius:0px; 
+	border: 1px solid #F09609;
+}
+
+.navLi>a{
+	color:white;
+	text-shadow: 1px 1px 1px black;
+	font-size:18px;
+	padding: 10px;
+	border-radius:5px;
+}
+
+.navLi>a:hover{
+	background-color:#F09609;	
+	text-shadow:none;
+}
+
+.navbar-nav >li >a {
+	padding-top:10px;
+	padding-bottom:10px;
 }
 
 .navLi {
-	margin-top:10px;
+	margin-top:12px;
 	margin-right:20px;
 	list-style:none;
 }
@@ -28,22 +56,31 @@ nav {
 .myDropdownMenu{
 	margin-top: 3px;
     padding: 5px 5px;
+	border-top-left-radius: 3px !important;
+    border-top-right-radius: 3px !important;
+	top:120%;
+	min-width:150px;
 }
 
 .navbar-header {
-	width:10%;
+	width: 120px;
+    margin-left: 10px;
 }
 
 .logo {
-	width: 100%;
+	width: 100px;
     margin: -12px;
     margin-left: 5px;
     border-radius: 2px;
 }
 
+.logo:hover {
+	box-shadow: 2px 2px 2px black;
+}
+
 #collapse-btn1:focus, #collapse-btn1:hover, #collapse-btn1:active{
 	text-decoration:none;
-	color:#337ab7;
+	color:white;
 }
 
 
@@ -56,24 +93,34 @@ nav {
     position: relative;
     min-height: 86vh;
     padding-left: 5px;
+	margin-left:10px;
+	margin-right:10px;
 }
 
 footer {
 	position: relative;
 	bottom: 5%;
 	text-align:center;
-	background-color:brown;
+	background-color:#337ab7;
 	width: 100%;
-	color: #5bc0de;
+	color:white;
+	text-shadow: 1px 1px 1px black;
+	border: 1px solid #F09609;
+}
+
+footer>a{
+	color:white;
+	cursor:pointer;
 }
 
 #welcomeMessage {
 	margin:30px;
 	text-align:center;
+	color:#F09609;
+	font-size:200%;
 }
 
 #topSells {
-	margin:100px;
 	margin-bottom:20px;
 	text-align:center;
 }
@@ -81,25 +128,40 @@ footer {
 .topAdvs{width:100px; 
 		float:left;
 		margin-left:50px;
-}
+		margin-bottom:30px;
+		height:120px;
+		overflow:hidden;
+		font-size:12px;
+		}
 
 form {
-	margin: 30px;
-	width: 60%;
+	width: 600px;
+	margin:2%;
+	padding: 4px;
+	text-align:center;
 }
 
 form>div{
 	margin:10px;
 }
 
+.searchForm {
+	border: 1px solid #F09609;
+	border-radius:5px;
+	padding:6px;
+	width:500px;
+}
+
 .myTable {
-	margin: 3%;
-	width: 50%;
-	height: 20%;
+	margin: 2%;
+	width: 500px;
+	height: 220px;
+	
 }
 
 .myTable>tbody>tr>td{
 	width: 40%;
+	color:black;
 }
 
 .form-group>div {
@@ -115,14 +177,20 @@ form>div{
 }
 
 .tableSetts {
-	background-color:pink;
-	padding-right: 15%;
+	background-color:#dff0d8;
+	padding-right: 50px;
 	padding-bottom: 6px;
+	margin:0px;
+	margin-bottom:15px;
+	width: 150px;
 }
 
 .tableSetts:last-child {
 	padding-bottom: 3px;
-	padding-right: 3%;
+    padding-right: 30px;
+    padding-left: 60px;
+    width: 60%;
+    text-align: center;
 }
 
 #searchField {
@@ -143,10 +211,12 @@ form>div{
 
 .mySuccessBtn{
 	margin-left:3%;
+	background-color:#F09609;
+	color:white;
 }
 
 .contact-logo{
-	width:30%;
+	width:300px;
 	border:2px solid black
 }
 
@@ -174,6 +244,10 @@ form>div{
 	text-align:center;
 }
 
+.messageManagerTable>tbody>tr>td{
+	color:#222;
+}
+
 .newMessage {
 	background-color:lightgrey;
 }
@@ -197,9 +271,121 @@ form>div{
 
 .regProfFields {
 	width:64%;
+	text-align: start;
+}
+
+.regProfFieldContainer>label {
+	color:black;
 }
 
 .regProfField{
 	width:15px;
 	height:15px;
+	width: 15px;
+    height: 15px;
+    position: relative;
+    top: 3px;
+    left: 7px;
+}
+
+.regProfFieldContainer{
+	width:100px; 
+	display:inline-block;
+}
+
+.menuSelected {
+	background-color: lightgray;
+    border-radius: 5px;
+    padding: 8px;
+    margin-left: 2px;
+}
+
+.menuSelected:after {
+	border: solid 8px transparent;
+	content: " ";
+	font-size:0px;
+	position: relative;
+	border-right-color: white;
+	bottom:5px;
+	left: 30px;
+}
+
+.renton-card-header {
+	font-size:200%;
+	color:black;
+}
+
+@media screen and (max-width: 959px) {
+	.navLi {
+		margin-bottom:10px;
+		margin-top: 12px;
+		margin-right: 20px;
+		list-style: none;
+	}
+	
+	#page-container {
+    position: relative;
+	display: flow-root;
+    padding-left: 5px;
+	margin-left:10px;
+	margin-right:10px;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	form, .searchForm{
+		width:100%;
+	}
+	
+	.navLi>a{
+		font-size:14px;
+	}
+	
+	.renton-card-header{
+		font-size:16px;
+	}
+	
+	
+	.btn,.form-control, *{
+		font-size:12px;
+	}
+	
+	.tableSetts:last-child{
+	padding-bottom: 3px;
+    padding-right: 5px;
+    padding-left: 5px;
+    width: 88%;
+    text-align: center;
+	}
+	
+	.regProfFields {
+	text-align:end;
+	}
+}
+
+@media screen and (max-width: 530px) {
+	.myTable, .myTable>tbody>tr>td>img{
+		width:100%;
+	}
+	
+	.renton-card-header, .navLi>a{
+		font-size:12px;
+	}
+	
+	.btn,.form-control, *{
+		font-size:10px;
+	}
+}
+
+@media screen and (max-width: 370px) {
+	.contact-logo{
+		width:100%;
+	}
+	iframe{
+		width:100%;
+	}
+	
+	.regProfFields {
+	text-align:center;
+	}
 }
