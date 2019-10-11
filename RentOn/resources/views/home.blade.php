@@ -2,6 +2,12 @@
 
  @section('content')
 	<h2 id = "welcomeMessage">Welcome at RentOn, on your appartman advertising homepage</h2>
+	<!-- Flash messages for Users -->
+	@if (session('status'))
+		<span  class="userFlashMessages alert @if(session('status') !== 'Advertisement deleted!') {{'alert-success'}} @else {{'alert-danger'}} @endif">
+			{{ session('status') }}
+		</span>
+	@endif
 	
 	 <!-- Datatable -->
 	<h4 id= "topSells">Top sells</h4>

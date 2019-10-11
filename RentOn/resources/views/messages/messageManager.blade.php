@@ -1,12 +1,17 @@
 @extends('main')
 
 @section('content')
-	<!-- edit searchField -->
+	<!-- Flash messages for Users -->
+	@if (session('status'))
+		<span  class="userFlashMessages alert @if(session('status') !== 'Message deleted!') {{'alert-success'}} @else {{'alert-danger'}} @endif">
+			{{ session('status') }}
+		</span>
+	@endif
 	<!-- Navbar -->	
 	@if($type != "all")
 	{{$type}}
 	<ul class='messageManagerMenu'>
-		<li><a class="btn btn-success mySuccessBtn" href='/RentOn/public/createMessage/0'>new message</a></li>
+		<li><a class="btn btn-success renton-SuccessBtn" href='/RentOn/public/createMessage/0'>new message</a></li>
 		@if($type == 'receiver')<li class = "menuSelected"> @else <li> @endif <a href="/RentOn/public/manageMessages?type=inbox"  ><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-123-message-in.png"/> inbox</a></li>
 		@if($type == 'sender')<li class = "menuSelected"> @else <li> @endif<a href="/RentOn/public/manageMessages?type=outbox" ><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-124-message-out.png"/> outbox</a></li>
 		@if($type == 'bin')<li class = "menuSelected"> @else <li> @endif <a href="/RentOn/public/manageMessages?type=bin" ><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-17-bin.png"/> trash</a></li>

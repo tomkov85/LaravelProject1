@@ -2,10 +2,17 @@
 
 @section('content')
 
-<a class="btn mySuccessBtn" href='createAdv'>new advertisement</a>
+<!-- Flash messages for Users -->
+@if (session('status'))
+	<span  class="userFlashMessages alert @if(session('status') !== 'Advertisement deleted!') {{'alert-success'}} @else {{'alert-danger'}} @endif">
+        {{ session('status') }}
+    </span>
+@endif
+
+<a class="btn renton-SuccessBtn" href='createAdv'>new advertisement</a>
 <!-- Adv List -->
 @foreach($userAdvs as $userAdv)
-	<table class="table table-striped table-bordered myTable">
+	<table class="table table-striped table-bordered renton-Table">
 	<caption><a href='showAdv/{{$userAdv->id}}'>{{$userAdv->title}}</a></caption>
 		<tbody>
 			<tr><td rowspan="5"><img alt="no pics" src="apartmentspics\{{$userAdv->advMainImage}}" width="200px"></td>

@@ -22,7 +22,7 @@
 			<tr><td><textarea id="messageTextArea" name="messageText">Enter your message here</textarea></td></tr>	
 		</tbody>	
 	</table>
-	<button type="submit" class="btn btn-success mySuccessBtn">send message</button>
+	<button type="submit" class="btn btn-success renton-SuccessBtn">send message</button>
 </form>	
 
 

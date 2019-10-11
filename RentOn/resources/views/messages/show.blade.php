@@ -2,7 +2,7 @@
 
 @section('content')
 	 <!-- Datatable -->
-	<table class="table table-striped table-bordered myTable">
+	<table class="table table-striped table-bordered renton-Table">
 		<thead>
 		</thead>
 		<tbody>

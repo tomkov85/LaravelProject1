@@ -95,46 +95,7 @@ class AdminController extends Controller
         
         return view('admin.advMan',['userAdvs'=>$userAdvs]);
     }
-	
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit()
     {
 		$email = \App\PageSettingsModel::where('settingName','email')->first();
@@ -154,9 +115,9 @@ class AdminController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'email'=>['string'],
-            'address'=>['string'],
-            'phone'=>['string'],
+            'email'=>['string','max:50','required'],
+            'address'=>['string','max:50'],
+            'phone'=>['string','max:20'],
 			
         ]);
 		

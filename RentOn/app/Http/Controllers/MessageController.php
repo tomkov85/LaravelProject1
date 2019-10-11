@@ -74,7 +74,7 @@ class MessageController extends Controller
         $request->validate([
             'messageTitle'=>['string', 'max:30','required'],
             'reciever'=>['string','max:30','required'],
-            'messageText'=>['string','required']
+            'messageText'=>['string','max:1000','required']
         ]);
 		
         $message= new MessagesModel();
@@ -123,18 +123,6 @@ class MessageController extends Controller
 			$message->save();
 		
 		return back();
-    }
-
-    /**
-     * Update the specified message in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

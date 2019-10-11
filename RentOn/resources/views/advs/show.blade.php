@@ -3,7 +3,7 @@
 @section('content')	
 
 	 <!-- Datatable -->	
-	<table class="table table-striped table-bordered myTable">
+	<table class="table table-striped table-bordered renton-Table">
 	<caption>{{$adv->title}}</caption>
 		<thead>
 		</thead>
@@ -16,7 +16,7 @@
 			<tr><td>{{$adv->advertisementText}}</td></tr>	
 		</tbody>	
 	</table>
-	<a class="btn btn-success mySuccessBtn" href='/RentOn/public/createMessage/{{$adv->id}}'>Send a message to the owner</a>	
+	<a class="btn btn-success renton-SuccessBtn" href='/RentOn/public/createMessage/{{$adv->id}}'>Send a message to the owner</a>	
 
 
 @endsection

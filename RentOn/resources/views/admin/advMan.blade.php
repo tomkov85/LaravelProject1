@@ -1,8 +1,16 @@
 @extends('main')
 
 @section('content')
+
+<!-- Flash messages for Users -->
+@if (session('status'))
+	<span  class="userFlashMessages alert @if(session('status') !== 'Advertisement deleted!') {{'alert-success'}} @else {{'alert-danger'}} @endif">
+        {{ session('status') }}
+    </span>
+@endif
+
 <!-- Admin menu -->	
-@if(Auth::user()->name == "myAdmin")
+@if(Auth::user()->name == "renton-Admin")
 	<form class="form-horizontal searchForm" method="get" action="">
 			<div class="form-group">
 				<div id="searchField" class="col-sm-3">
@@ -18,10 +26,10 @@
 	</form>	
 @endif
 
-<a class="btn mySuccessBtn" href='createAdv'>new advertisement</a>
+<a class="btn renton-SuccessBtn" href='createAdv'>new advertisement</a>
 <!-- Adv List -->
 @foreach($userAdvs as $userAdv)
-	<table class="table table-striped table-bordered myTable">
+	<table class="table table-striped table-bordered renton-Table">
 	<caption><a href='showAdv/{{$userAdv->id}}'>{{$userAdv->title}}</a></caption>
 		<tbody>
 			<tr><td rowspan="5"><img alt="no pics" src="apartmentspics\{{$userAdv->advMainImage}}" width="200px"></td>

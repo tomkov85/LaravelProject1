@@ -19,7 +19,7 @@
 			
 			<!-- Left Side Of Navbar, Logo and navigation links -->
 			<div class = "navbar-header">
-				<a class="navbar-brand" href = "/RentOn/public/"><img class="logo" alt="error" src="\RentOn\storage\app\myLogo\RentOnlogo.jpg"/></a>
+				<a class="navbar-brand" href = "/RentOn/public/"><img class="logo" alt="error" src="\RentOn\storage\app\RentonLogo\RentOnlogo.jpg"/></a>
 			</div>
 			<ul class = "navbar-nav navUl">			
 				<li class='nav-item navLi'><a href = "/RentOn/public/search?searchLoc=&order=&prize=&searchSizeMin=&order=size&pageLimit=5">buy/rent</a></li>
@@ -48,14 +48,14 @@
                                     <img alt="error" src="/RentOn/public/icons/glyphicons-4-user.png"/> {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div  id='collapse1' class="dropdown-menu dropdown-menu-right myDropdownMenu" aria-labelledby="navbarDropdown">
+                                <div  id='collapse1' class="dropdown-menu dropdown-menu-right renton-DropdownMenu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/RentOn/public/manageMessages?type=inbox"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-128-message-flag.png"/> Messages </a> 
 									<br>
 									<a class="dropdown-item" href="/RentOn/public/editAccount"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-137-cogwheel.png"/> Data modification </a> 
 									<br>
 									<a class="dropdown-item" href="/RentOn/public/getAllAdvs?page=1"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-30-notes-2.png"/> Advertisements </a>
 									<br>
-									@if(Auth::user()->name == "myAdmin")
+									@if(Auth::user()->name == "renton-Admin")
 									<a class="dropdown-item" href="/RentOn/public/editAccountAll"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-4-user.png"/> Users </a>			
 									<br>
 									<a class="dropdown-item" href="/RentOn/public/shopSettings"><img class="userIcons" alt="error" src="/RentOn/public/icons/glyphicons-375-claw-hammer.png"/> Shop Settings </a>			

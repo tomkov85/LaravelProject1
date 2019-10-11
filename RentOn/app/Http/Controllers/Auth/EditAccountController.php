@@ -73,7 +73,7 @@ class EditAccountController extends Controller
         
         $user->save();
         
-        return redirect()->action('auth\EditAccountController@edit');
+        return redirect()->action('auth\EditAccountController@edit')->with('status', 'Account updated!');
     }
 	
 	/**
@@ -87,7 +87,7 @@ class EditAccountController extends Controller
 
         $user->delete();
         
-        return redirect()->action('SearchController@getTopAdvertisements');
+        return redirect()->action('SearchController@getTopAdvertisements')->with('status', 'Account deleted!');
     }
 	
 	/**
@@ -101,6 +101,6 @@ class EditAccountController extends Controller
 
         $user->delete();
         
-        return redirect()->action('SearchController@getTopAdvertisements');
+        return redirect()->action('SearchController@getTopAdvertisements')->with('status', 'Account deleted!');
     }
 }

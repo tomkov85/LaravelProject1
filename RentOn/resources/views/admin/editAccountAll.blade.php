@@ -1,6 +1,14 @@
 @extends('main')
 
 @section('content')
+	<!-- Flash messages for Users -->
+	@if (session('status'))
+		<span  class="userFlashMessages alert @if(session('status') !== 'Advertisement deleted!') {{'alert-success'}} @else {{'alert-danger'}} @endif">
+			{{ session('status') }}
+		</span>
+	@endif
+
+
 	<!-- Search form -->
 	<form class="form-horizontal searchForm" method="get" action="">
 			<div class="form-group">

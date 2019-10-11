@@ -10,6 +10,17 @@ a:hover{
 	text-shadow: 1px 1px 1px yellow;
 }
 
+/*
+Main style
+*/
+.userFlashMessages {
+	margin: 2%; margin-top:20px; margin-bottom:20px; display:table;
+}	
+	
+
+/*
+Header style
+*/
 .renton-nav {
 	background-color:#337ab7;
 	box-shadow:1px 1px 1px #F09609;
@@ -53,7 +64,7 @@ a:hover{
 	margin-left:5%;
 }
 
-.myDropdownMenu{
+.renton-DropdownMenu{
 	margin-top: 3px;
     padding: 5px 5px;
 	border-top-left-radius: 3px !important;
@@ -83,12 +94,14 @@ a:hover{
 	color:white;
 }
 
-
 .userIcons{
 	height: 15px;
     width: 15px;
 }
 
+/*
+Center style
+*/
 #page-container {
     position: relative;
     min-height: 86vh;
@@ -113,6 +126,9 @@ footer>a{
 	cursor:pointer;
 }
 
+/*
+Special style
+*/
 #welcomeMessage {
 	margin:30px;
 	text-align:center;
@@ -152,16 +168,28 @@ form>div{
 	width:500px;
 }
 
-.myTable {
+.renton-Table {
 	margin: 2%;
-	width: 500px;
+	width: 600px;
 	height: 220px;
 	
 }
 
-.myTable>tbody>tr>td{
-	width: 40%;
+.renton-Table>tbody>tr>td{
+	width: 50%;
 	color:black;
+}
+
+.renton-Pics-InputField {
+	width:100%;
+}
+
+.renton-Advs-RadioBtn{
+	margin: 0px !important;
+	margin-left: 1px !important;
+    margin-right: 6px !important;
+    position: relative;
+    top: 2px;
 }
 
 .form-group>div {
@@ -205,11 +233,11 @@ form>div{
 }
 
 #advTextArea {
-	width:490px;
+	width:95%;
 	height:134px;
 }
 
-.mySuccessBtn{
+.renton-SuccessBtn{
 	margin-left:3%;
 	background-color:#F09609;
 	color:white;
@@ -315,6 +343,13 @@ form>div{
 	color:black;
 }
 
+.renton-input {
+	width:70%;
+}
+
+/*
+Responsive style
+*/
 @media screen and (max-width: 959px) {
 	.navLi {
 		margin-bottom:10px;
@@ -329,6 +364,11 @@ form>div{
     padding-left: 5px;
 	margin-left:10px;
 	margin-right:10px;
+	}
+	
+	.dropdown-menu-right {
+		left:0px;
+		right:auto;		
 	}
 }
 
@@ -364,7 +404,7 @@ form>div{
 }
 
 @media screen and (max-width: 530px) {
-	.myTable, .myTable>tbody>tr>td>img{
+	.renton-Table, .renton-Table>tbody>tr>td>img{
 		width:100%;
 	}
 	

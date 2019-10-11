@@ -52,7 +52,7 @@
 <br>
 <!-- Search results tables -->	
 @foreach($in as $i)
-	<table class="table table-striped table-bordered myTable">
+	<table class="table table-striped table-bordered renton-Table">
 	<caption>{{$i->title}}</caption>
 		<thead>
 		</thead>

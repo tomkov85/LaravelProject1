@@ -15,7 +15,11 @@ class AdvController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
+    {   
+		if(empty($_GET['page'])) {
+			$_GET['page'] = 1;
+		}
+		
 		if(Auth::user()->name == "myAdmin") {
 			$userAdvs = \App\SearchModel::where('advUser',">",0)->paginate(5);
 		} else {
@@ -44,11 +48,11 @@ class AdvController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'advTitle'=>['string', 'max:30','required'],
+            'advTitle'=>['string','max:30','required'],
             'advAddress'=>['string','max:20','required'],
             'advSize'=>['integer','required'],
             'advPrize'=>['integer','required'],
-            'advText'=>['string','required']
+            'advText'=>['string','max:500','required']
         ]);
         
 		$moreImage = $request->advMorePics1.",".$request->advMorePics2.",".$request->advMorePics3;
@@ -70,7 +74,7 @@ class AdvController extends Controller
 		
         $adv->save();
 
-        return redirect()->action('AdvController@index');
+        return redirect()->action('AdvController@index')->with('status', 'Advertisement added!');
     }
 
     /**
@@ -131,7 +135,7 @@ class AdvController extends Controller
             'advAddress'=>['string','max:20','required'],
             'advSize'=>['integer','required'],
             'advPrize'=>['integer','required'],
-            'advText'=>['string','required']
+            'advText'=>['string','max:500','required']
         ]);
         
 		$moreImage = $request->advMorePics1.",".$request->advMorePics2.",".$request->advMorePics3;
@@ -148,7 +152,7 @@ class AdvController extends Controller
         
         $adv->save();
         
-        return redirect()->action('AdvController@index');
+        return redirect()->action('AdvController@index')->with('status', 'Advertisement updated!');
     }
 
     /**
@@ -162,6 +166,6 @@ class AdvController extends Controller
         $adv = \App\SearchModel::find($id);
         $adv->delete();
         
-        return back();
+        return back()->with('status', 'Advertisement deleted!');;
     }
 }
