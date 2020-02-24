@@ -10,22 +10,50 @@
 	
 	require_once 'pmConnection.php';
 	
+	
 	function queryBulider($fields, $tableName) {
-		$sqlCommand = "SELECT ";
+		$idFieldName = substr($tableName,0,strlen($tableName) - 2)."_id";
+		$sqlCommand = "SELECT ".$idFieldName.",";
 		foreach ($fields as $field) {
 			$sqlCommand.= $field .",";
 		}
 		$sqlCommand = substr($sqlCommand,0,strlen($sqlCommand) - 1);
-		$sqlCommand .=" FROM ".$tableName; //. " WHERE felhasznalo_id = '$user_id'"
+		$user_id = $_SESSION['user'];
+		$orderBy = "";
+		
+		if(!empty($_GET['order'])) {
+			$orderBy = "ORDER BY ".$_GET['order'];
+		}
 		$connectionObj = new Connect();
+		$sqlCommand .=" FROM ".$tableName." WHERE felhasznalo_id = '$user_id' ".$orderBy; 
 		return $connectionObj->getConnection()->query($sqlCommand)->fetchAll(PDO::FETCH_NUM);
 	}
 	
+	function getFields($tablename) {
+		$connectionObj = new Connect();
+		$user_id = $_SESSION['user'];
+		$fieldList = $connectionObj->getConnection()->query("SELECT beallitas FROM beallitasok WHERE felhasznalo_id = '$user_id' AND oldal = '$tablename'")->fetch(PDO::FETCH_NUM); 
+		$fieldListRaw = $fieldList[0];
+		$fields = array();
+	
+		while(strlen($fieldListRaw) > 0) {
+			$fields[count($fields)] = substr($fieldListRaw, 0 , stripos($fieldListRaw, ","));
+			$fieldListRaw = substr($fieldListRaw, strpos($fieldListRaw, ",") + 1);
+		}
+						
+		return $fields;
+	}
+	
+	function getFieldList($tablename) {
+		$connectionObj = new Connect();
+		return $fieldList = $connectionObj->getConnection()->query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'$tablename'")->fetchAll(PDO::FETCH_NUM);
+	}
+	
 	function createTable($fields, $tableName, $fieldList) {	
-		echo "<button class='btn btn-info btnFieldList'>Oszlopok</button><div class='fieldListContainer'><form class = 'fieldList'>";
+		echo "<button class='btn btn-info btnFieldList'>Oszlopok</button><div class='fieldListContainer'><form onchange='this.submit()' class = 'fieldList' method='POST'>";
 		for($i = 1; $i < count($fieldList) - 1; $i++) {
 			$l = $fieldList[$i][0];
-			echo "<label>".$l."</label><input type = 'checkbox' value = '$l' name = fieldList'$i' ";
+			echo "<label>".$l."</label><input type = 'checkbox' value = '$l' name = fieldList".$i." ";
 			if (array_search($fieldList[$i][0], $fields) > -1) {
 				echo "checked ";
 			}
@@ -34,7 +62,7 @@
 		echo "</div></form><table class='table-bordered table-striped datatable'><caption>".$tableName."</caption><thead>";
 		$datas = queryBulider($fields, $tableName);
 		foreach ($fields as $field) {
-			echo "<th>".$field."</th>";
+			echo "<th><a href=".$_SERVER['PHP_SELF']."?order=$field >".$field."</a></th>";
 		}
 		echo "<th colspan = '3'></th></thead><tbody>";
 		
@@ -43,15 +71,17 @@
 		//	$index = 0;
 			
 			foreach($datas as $index => $data) {
-				$value = $data[1];
+				$value = $data[2];
 				$values[$index] = $value;
 			//	$index++;
 			//	$fieldIndex = 0;
-				foreach ($fields as $fieldIndex => $field) {
+				for ($fieldIndex = 1;$fieldIndex <= count($fields);$fieldIndex++) {
 					echo "<td>".$data[$fieldIndex]."</td>";
 					//$fieldIndex++;
 				}
-				echo "<td><a href='pmReszletes.php?table=$tableName&id=$fieldIndex'><img src='pm_details.png'></a></td><td><a href='pmModositas.php?table=$tableName&id=$fieldIndex'><img src='pm_update.png'></a></td><td><a href='pmTorles.php?table=$tableName&id=$fieldIndex'><img src='pm_bin_icon.png'></a></td></tr>";
+				echo "<td><a href='pmReszletes.php?table=$tableName&id=$data[0]'><img src='pm_details.png'></a></td><td><a href='pmUjModVagyon.php?table=$tableName&id=$data[0]'><img src='pm_update.png'></a></td><td><a href='pmTorles.php?table=$tableName&id=$data[0]'><img src='pm_bin_icon.png'></a></td></tr>";
+				
+				//echo "<td><a href='pmReszletes.php?table=$tableName&id=$fieldIndex'><img src='pm_details.png'></a></td><td><a href='pmModositas.php?table=$tableName&id=$fieldIndex'><img src='pm_update.png'></a></td><td><a href='pmTorles.php?table=$tableName&id=$fieldIndex'><img src='pm_bin_icon.png'></a></td></tr>";
 				$sumvalue += $value;	
 			}
 			echo "<tr class = 'sumRow'><td>Összesen: </td><td>".$sumvalue."</td></tr></tbody></table>";			
@@ -59,7 +89,7 @@
 			echo "<canvas id='myCanvas'></canvas><ul id='chartData'><li>ALL $sumvalue</li>";
 	
 			foreach($datas as $dataIndex => $data ) {
-				echo "<li id='name_".$dataIndex."'>".$data[0]." <a id='value_".$dataIndex."'>". round($values[$dataIndex]/$sumvalue*100) ."%</a></li>";
+				echo "<li id='name_".$dataIndex."'>".$data[1]." <a id='value_".$dataIndex."'>". round($values[$dataIndex]/$sumvalue*100) ."%</a></li>";
 			
 			}
 			$dataLength = count($values);
@@ -68,6 +98,20 @@
 
 	$messages1 = $connectionObj->getConnection()->query("(SELECT megnevezes, day(datum) as ido FROM `feladatok` WHERE (gyakorisag = 'eves' AND datum - CURRENT_DATE < 100) OR gyakorisag = 'havi' AND day(datum) - day(CURRENT_DATE) >= 0 ORDER BY day(datum))")->fetchAll(PDO::FETCH_OBJ);
 	$messages2 = $connectionObj->getConnection()->query("(SELECT megnevezes, day(datum) as ido FROM `feladatok` WHERE gyakorisag = 'havi' AND day(datum) - day(CURRENT_DATE) < 0 ORDER BY day(datum))")->fetchAll(PDO::FETCH_OBJ);
+
+	function changeSettings($tableName) {
+		$connectionObj = new Connect();
+		$user_id = $_SESSION['user'];
+
+		if(!empty($_POST)) {
+			$settings="";
+			foreach ($_POST as $setting) {
+				$settings.=$setting.",";
+			}
+			
+			$connectionObj->getConnection()->query("UPDATE beallitasok SET beallitas='$settings' WHERE felhasznalo_id='$user_id' AND oldal='$tableName';"); 
+		}
+	}
 ?>
 
 <html lang='hu'>
@@ -214,7 +258,11 @@
     </li>
   </ul>
 </nav>
-
+<?php if(!empty($_SESSION['status'])) {
+		echo $_SESSION['status'];
+		unset($_SESSION['status']);
+	}
+?>
 <div class="messagesContainer"> Üzenetek
 	<ul class="messageList">
 	<?php 

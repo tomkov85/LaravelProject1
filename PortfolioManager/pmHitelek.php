@@ -1,9 +1,11 @@
 <?php
+
 	include 'pmMain.php';
-	$fields = array("nev", "osszeg", "torlesztoreszlet", "futamido", "hitel_id");
+	changeSettings("hitelek");
 ?>
 <div id='page'>
-<?php createTable($fields, "hitelek"); ?>
+<a href="pmUjModVagyon.php?table=hitelek&id=0" class='btn btn-success'>Új Hitel</a>
+<?php createTable(getFields("hitelek"), "hitelek", getFieldList("hitelek")); ?>
 
 </div>
 <?php
